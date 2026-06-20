@@ -1,11 +1,16 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>UPSLink - Android UPS Monitoring for NUT</title>
 
-  <meta name="description" content="UPSLink is a simple Android app for monitoring UPS devices through NUT (Network UPS Tools), Unraid, Synology, Proxmox, TrueNAS, Raspberry Pi, and Linux servers.">
+  <meta
+    name="description"
+    content="UPSLink is a simple Android app for monitoring UPS devices through NUT (Network UPS Tools), Unraid, Synology, Proxmox, TrueNAS, Raspberry Pi, and Linux servers."
+  />
 
   <style>
     body {
@@ -81,6 +86,35 @@
       border-radius: 16px;
     }
 
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .gallery .card {
+      padding: 12px;
+      text-align: center;
+    }
+
+    .gallery img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid #334155;
+      transition: transform 0.2s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.03);
+    }
+
+    .gallery h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+      color: #cbd5e1;
+      font-size: 1rem;
+    }
+
     a {
       color: #93c5fd;
     }
@@ -95,6 +129,11 @@
       text-decoration: none;
     }
 
+    .bottom-download {
+      text-align: center;
+      margin-top: 20px;
+    }
+
     footer {
       text-align: center;
       padding: 30px;
@@ -103,20 +142,23 @@
     }
   </style>
 </head>
+
 <body>
 
 <header>
   <h1>UPSLink</h1>
 
   <p class="tagline">
-    Simple Android UPS monitoring for NUT, Unraid, Synology, Proxmox,
-    TrueNAS, Raspberry Pi, and Linux UPS servers.
+    Simple Android UPS monitoring for NUT, Unraid, Synology,
+    Proxmox, TrueNAS, Raspberry Pi, and Linux UPS servers.
   </p>
 
-  <a class="button"
-     href="https://play.google.com/store/apps/details?id=com.reelmemories.upslink"
-     target="_blank">
-     Download on Google Play
+  <a
+    class="button"
+    href="https://play.google.com/store/apps/details?id=com.reelmemories.upslink"
+    target="_blank"
+  >
+    Download on Google Play
   </a>
 </header>
 
@@ -129,6 +171,49 @@
       title="UPSLink Demo"
       allowfullscreen>
     </iframe>
+  </div>
+</section>
+
+<section>
+  <h2>Screenshots</h2>
+
+  <div class="gallery">
+
+    <div class="card">
+      <h3>Dashboard</h3>
+      <img src="assets/screenshots/dashboard.png" alt="UPSLink Dashboard">
+    </div>
+
+    <div class="card">
+      <h3>Overview</h3>
+      <img src="assets/screenshots/overview.png" alt="UPSLink Overview">
+    </div>
+
+    <div class="card">
+      <h3>Metrics</h3>
+      <img src="assets/screenshots/metrics.png" alt="UPSLink Metrics">
+    </div>
+
+    <div class="card">
+      <h3>Alerts</h3>
+      <img src="assets/screenshots/alerts.png" alt="UPSLink Alerts">
+    </div>
+
+    <div class="card">
+      <h3>Setup Wizard</h3>
+      <img src="assets/screenshots/setup.png" alt="UPSLink Setup Wizard">
+    </div>
+
+    <div class="card">
+      <h3>Settings</h3>
+      <img src="assets/screenshots/settings.png" alt="UPSLink Settings">
+    </div>
+
+    <div class="card">
+      <h3>Advanced Features</h3>
+      <img src="assets/screenshots/advanced_features.png" alt="UPSLink Advanced Features">
+    </div>
+
   </div>
 </section>
 
@@ -177,6 +262,16 @@
     <a href="faq.md">FAQ</a>
     <a href="getting-started.md">Getting Started</a>
   </div>
+
+  <div class="bottom-download">
+    <a
+      class="button"
+      href="https://play.google.com/store/apps/details?id=com.reelmemories.upslink"
+      target="_blank"
+    >
+      Download UPSLink
+    </a>
+  </div>
 </section>
 
 <footer>
@@ -185,3 +280,4 @@
 
 </body>
 </html>
+```
