@@ -1,0 +1,369 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>UPSLink FAQ</title>
+
+  <meta
+    name="description"
+    content="Frequently asked questions for UPSLink, an Android UPS monitoring app for NUT, Synology, Unraid, Proxmox, TrueNAS, Raspberry Pi, and Linux UPS servers."
+  >
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #050505;
+      color: #ffffff;
+      line-height: 1.7;
+    }
+
+    header {
+      text-align: center;
+      padding: 70px 20px;
+      background: linear-gradient(
+        180deg,
+        #0a0a0a 0%,
+        #111111 60%,
+        #050505 100%
+      );
+      border-bottom: 1px solid #1d1d1d;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+
+    .brand-green {
+      color: #7cff00;
+    }
+
+    .subtitle {
+      color: #cfcfcf;
+      margin-top: 15px;
+      font-size: 1.1rem;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 50px 20px;
+    }
+
+    .card {
+      background: #111111;
+      border: 1px solid #232323;
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      color: #7cff00;
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
+
+    h3 {
+      color: #ffffff;
+      margin-top: 24px;
+      margin-bottom: 10px;
+    }
+
+    ul,
+    ol {
+      margin-top: 10px;
+      padding-left: 24px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    code {
+      background: #050505;
+      border: 1px solid #232323;
+      border-radius: 8px;
+      padding: 3px 8px;
+      color: #7cff00;
+    }
+
+    a {
+      color: #7cff00;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 24px;
+      background: #7cff00;
+      color: #000000;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 999px;
+    }
+
+    .back-link:hover {
+      opacity: 0.9;
+      text-decoration: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #888888;
+      border-top: 1px solid #1d1d1d;
+      background: #0a0a0a;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1><span class="brand-green">UPS</span>Link</h1>
+  <p class="subtitle">Frequently Asked Questions</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2>What is UPSLink?</h2>
+
+    <p>
+      UPSLink is an Android application that monitors UPS devices through
+      NUT (Network UPS Tools) and compatible <code>upsd</code> servers.
+    </p>
+
+    <p>
+      UPSLink provides battery status, runtime estimates, power event
+      notifications, widgets, and monitoring tools directly from your
+      Android device.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>What UPS systems are supported?</h2>
+
+    <p>
+      UPSLink supports any UPS exposed through a compatible NUT
+      (Network UPS Tools) server.
+    </p>
+
+    <p>Common supported environments include:</p>
+
+    <ul>
+      <li>Synology NAS</li>
+      <li>Unraid</li>
+      <li>Proxmox</li>
+      <li>TrueNAS</li>
+      <li>Raspberry Pi</li>
+      <li>Linux servers running NUT</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Does UPSLink require an account?</h2>
+
+    <p>No.</p>
+
+    <p>UPSLink works without:</p>
+
+    <ul>
+      <li>Account creation</li>
+      <li>Cloud registration</li>
+      <li>Subscription services</li>
+    </ul>
+
+    <p>
+      Your UPS connections and settings are stored locally on your device.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>Does UPSLink support notifications?</h2>
+
+    <p>Yes.</p>
+
+    <p>UPSLink can provide notifications for:</p>
+
+    <ul>
+      <li>Power outages</li>
+      <li>Low battery conditions</li>
+      <li>Low runtime warnings</li>
+      <li>Connection failures</li>
+      <li>Battery replacement recommendations</li>
+    </ul>
+
+    <p>
+      Notifications can be customized in the application settings.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>Does UPSLink work outside my home network?</h2>
+
+    <p>
+      UPSLink is designed primarily for local network monitoring.
+    </p>
+
+    <p>
+      Remote monitoring may be possible if your NUT server is securely
+      exposed through VPN or other remote access solutions.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>What port does UPSLink use?</h2>
+
+    <p>
+      By default, NUT servers typically use:
+    </p>
+
+    <p><code>3493</code></p>
+
+    <p>
+      Ensure the NUT server is reachable from your Android device.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>Can UPSLink monitor multiple UPS devices?</h2>
+
+    <p>Yes.</p>
+
+    <p>
+      UPSLink supports monitoring multiple UPS devices and multiple NUT
+      server connections.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>Does UPSLink support Android widgets?</h2>
+
+    <p>Yes.</p>
+
+    <p>
+      UPSLink includes Android home screen widgets that can display UPS
+      status information directly on your device.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>How do I connect UPSLink to Synology?</h2>
+
+    <p>
+      UPSLink can connect to Synology NAS devices using Synology's built-in
+      Network UPS Server functionality.
+    </p>
+
+    <h3>Configure Synology</h3>
+
+    <ol>
+      <li>Connect your UPS to the Synology NAS using USB.</li>
+      <li>Open DSM.</li>
+      <li>
+        Navigate to:
+        <br>
+        <strong>Control Panel → Hardware &amp; Power → UPS</strong>
+      </li>
+      <li>
+        Enable:
+        <ul>
+          <li><strong>Enable UPS Support</strong></li>
+          <li><strong>Enable Network UPS Server</strong></li>
+        </ul>
+      </li>
+      <li>Click <strong>Permitted DiskStation Devices</strong>.</li>
+      <li>Add the IP address of the Android device running UPSLink.</li>
+    </ol>
+
+    <h3>Configure UPSLink</h3>
+
+    <ol>
+      <li>Open UPSLink.</li>
+      <li>Tap <strong>Add Connection</strong>.</li>
+      <li>Enter the IP address of your Synology NAS.</li>
+      <li>Leave the port as <strong>3493</strong> unless you have customized it.</li>
+      <li>Enter credentials if required.</li>
+      <li>Tap <strong>Discover Devices</strong>.</li>
+    </ol>
+
+    <p>
+      UPSLink should automatically discover and connect to the UPS exposed
+      by Synology's Network UPS Server.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>UPSLink cannot discover my Synology UPS</h2>
+
+    <p>If UPSLink cannot discover your UPS:</p>
+
+    <ol>
+      <li>Verify <strong>Enable Network UPS Server</strong> is enabled in DSM.</li>
+      <li>Verify your Android device and Synology NAS are on the same network.</li>
+      <li>
+        Verify the Android device IP address has been added to
+        <strong>Permitted DiskStation Devices</strong>.
+      </li>
+      <li>Confirm port <strong>3493</strong> is not blocked by a firewall.</li>
+      <li>
+        Try manually adding the Synology NAS IP address in UPSLink instead
+        of using discovery.
+      </li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>Is my data sent to a cloud service?</h2>
+
+    <p>No.</p>
+
+    <p>
+      UPSLink is designed to communicate directly with user-configured NUT
+      servers and does not intentionally transmit UPS monitoring data to
+      third-party cloud services.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>Where can I get support?</h2>
+
+    <p>For support, questions, or feedback:</p>
+
+    <p>
+      <strong>Email:</strong>
+      <a href="mailto:reelmemories1987@gmail.com">
+        reelmemories1987@gmail.com
+      </a>
+    </p>
+
+    <p>
+      <strong>Website:</strong>
+      <a href="https://reelmemories.github.io/upslink/">
+        https://reelmemories.github.io/upslink/
+      </a>
+    </p>
+  </div>
+
+  <a class="back-link" href="index.html">← Back to UPSLink</a>
+
+</div>
+
+<footer>
+  UPSLink © 2026
+</footer>
+
+</body>
+</html>
+```
