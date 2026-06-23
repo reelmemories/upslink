@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>UPSLink - Android UPS Monitoring for NUT</title>
-<link rel="icon" type="image/png" href="assets/screenshots/upslink-icon.png?v=2">
-<link rel="apple-touch-icon" href="assets/screenshots/upslink-icon.png?v=2">
-<meta name="theme-color" content="#7cff00">
+  <link rel="icon" type="image/png" href="assets/screenshots/upslink-icon.png?v=2">
+  <link rel="apple-touch-icon" href="assets/screenshots/upslink-icon.png?v=2">
+  <meta name="theme-color" content="#7cff00">
 
   <meta
     name="description"
@@ -108,9 +108,15 @@
       box-shadow: 0 0 24px rgba(124, 255, 0, 0.12);
     }
 
-    .testimonial {
-      max-width: 700px;
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      max-width: 900px;
       margin: 35px auto 0;
+    }
+
+    .testimonial {
       text-align: center;
       background: #0d0d0d;
       border: 1px solid #2f4f1f;
@@ -190,6 +196,63 @@
       color: #7cff00;
     }
 
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 22px;
+    }
+
+    .feature-card {
+      background: linear-gradient(180deg, #121212 0%, #0b0b0b 100%);
+      border: 1px solid #263f18;
+      border-radius: 18px;
+      padding: 28px 22px;
+      text-align: center;
+      min-height: 170px;
+      box-shadow: 0 0 18px rgba(124, 255, 0, 0.06);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 24px rgba(124, 255, 0, 0.12);
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .feature-card h3 {
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      color: #cfcfcf;
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    .platform-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .platform-pill {
+      background: #111111;
+      border: 1px solid #263f18;
+      color: #ffffff;
+      padding: 14px 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      box-shadow: 0 0 14px rgba(124, 255, 0, 0.05);
+    }
+
     a {
       color: #7cff00;
     }
@@ -245,27 +308,27 @@
     Download on Google Play
   </a>
 
-<div class="testimonial-grid">
+  <div class="testimonial-grid">
 
-  <div class="testimonial">
-    <div class="stars">★★★★★</div>
-    <p class="quote">“Fantastic app.”</p>
-    <div class="quote-source">5-star Google Play review</div>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <p class="quote">“Fantastic app.”</p>
+      <div class="quote-source">5-star Google Play review</div>
+    </div>
+
+    <div class="testimonial">
+      <p class="quote">
+        “I tried your app on an Android tablet. The installation was very quick and easy.
+        I really liked the user-friendly interface. Connecting to the Synology NAS UPS server is simple.”
+      </p>
+      <div class="quote-source">Reddit user feedback</div>
+    </div>
+
   </div>
 
-  <div class="testimonial">
-    <p class="quote">
-      “I tried your app on an Android tablet. The installation was very quick and easy.
-      I really liked the user-friendly interface. Connecting to the Synology NAS UPS server is simple.”
-    </p>
-    <div class="quote-source">Reddit user feedback</div>
+  <div class="secondary-note" style="margin-top:20px;">
+    Trusted by Synology, Unraid, Proxmox, TrueNAS, and homelab users looking for a simple way to monitor NUT-compatible UPS devices.
   </div>
-
-</div>
-
-<div class="secondary-note" style="margin-top:20px;">
-  Trusted by Synology, Unraid, Proxmox, TrueNAS, and homelab users looking for a simple way to monitor NUT-compatible UPS devices.
-</div>
 </header>
 
 <section>
@@ -378,26 +441,55 @@
 <section>
   <h2>Features</h2>
 
-  <div class="grid">
-    <div class="card">🔍 Automatic NUT server discovery</div>
-    <div class="card">🔋 Battery percentage and runtime monitoring</div>
-    <div class="card">⚡ Power outage notifications</div>
-    <div class="card">📱 Android home screen widgets</div>
-    <div class="card">🖥️ Multiple UPS support</div>
-    <div class="card">🛠️ Diagnostics and monitoring tools</div>
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🔍</div>
+      <h3>Automatic Discovery</h3>
+      <p>Find compatible NUT servers quickly on your network.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🔋</div>
+      <h3>Battery Runtime</h3>
+      <p>Monitor battery percentage, runtime, load, and status.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Outage Alerts</h3>
+      <p>Get notified when your UPS switches to battery power.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">📱</div>
+      <h3>Android Widgets</h3>
+      <p>See UPS status directly from your home screen.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🖥️</div>
+      <h3>Multiple UPS Support</h3>
+      <p>Monitor more than one UPS or NUT server connection.</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">🛠️</div>
+      <h3>Diagnostics</h3>
+      <p>Useful tools for testing, troubleshooting, and monitoring.</p>
+    </div>
   </div>
 </section>
 
 <section>
   <h2>Supported Platforms</h2>
 
-  <div class="grid">
-    <div class="card">Unraid</div>
-    <div class="card">Synology NAS</div>
-    <div class="card">Proxmox</div>
-    <div class="card">TrueNAS</div>
-    <div class="card">Raspberry Pi</div>
-    <div class="card">Linux NUT Servers</div>
+  <div class="platform-grid">
+    <div class="platform-pill">Unraid</div>
+    <div class="platform-pill">Synology NAS</div>
+    <div class="platform-pill">Proxmox</div>
+    <div class="platform-pill">TrueNAS</div>
+    <div class="platform-pill">Raspberry Pi</div>
+    <div class="platform-pill">Linux NUT Servers</div>
   </div>
 </section>
 
