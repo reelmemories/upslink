@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,8 +79,16 @@
       background: #0d1600;
       border: 1px solid #2d4d00;
       border-radius: 12px;
-      padding: 16px;
-      margin-top: 20px;
+      padding: 20px;
+      margin-top: 25px;
+    }
+
+    .tip img {
+      width: 100%;
+      margin-top: 15px;
+      border-radius: 12px;
+      border: 1px solid #232323;
+      display: block;
     }
 
     a {
@@ -170,11 +177,26 @@
     </ol>
 
     <div class="tip">
-      <strong>Tip:</strong> For Synology users, ensure
-      <strong>Enable Network UPS Server</strong> is enabled and your
-      Android device IP address has been added to the
-      <strong>Permitted DiskStation Devices</strong> list.
+      <strong>Tip for Synology Users</strong>
+
+      <p>
+        If UPSLink cannot discover your UPS automatically, ensure that
+        <strong>Enable Network UPS Server</strong> is enabled in DSM and that
+        your Android device IP address has been added to the
+        <strong>Permitted DiskStation Devices</strong> list.
+      </p>
+
+      <p>
+        Navigate to:
+        <strong>Control Panel → Hardware &amp; Power → UPS</strong>
+      </p>
+
+      <img
+        src="assets/screenshots/synology_configuration.png"
+        alt="Synology UPS Network Server Configuration"
+      >
     </div>
+
   </div>
 
   <a class="back-link" href="index.html">
@@ -189,4 +211,4 @@
 
 </body>
 </html>
-```
+
