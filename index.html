@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +9,7 @@
 
   <meta
     name="description"
-    content="UPSLink is a simple Android app for monitoring UPS devices through NUT (Network UPS Tools), Unraid, Synology, Proxmox, TrueNAS, Raspberry Pi, and Linux servers."
+    content="UPSLink is an Android app for monitoring UPS devices through NUT, Unraid, Synology, Proxmox, TrueNAS, Raspberry Pi, and Linux servers with alerts, widgets, and runtime tracking."
   />
 
   <style>
@@ -21,14 +22,9 @@
     }
 
     header {
-      padding: 90px 20px;
+      padding: 90px 20px 70px;
       text-align: center;
-      background: linear-gradient(
-        180deg,
-        #0a0a0a 0%,
-        #111111 60%,
-        #050505 100%
-      );
+      background: linear-gradient(180deg, #0a0a0a 0%, #111111 60%, #050505 100%);
       border-bottom: 1px solid #1d1d1d;
     }
 
@@ -38,13 +34,31 @@
 
     h1 {
       font-size: 4rem;
-      margin: 0 0 20px;
+      margin: 0 0 18px;
       letter-spacing: -2px;
       font-weight: 800;
     }
 
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 2rem;
+    }
+
+    h3 {
+      margin-top: 0;
+    }
+
     .tagline {
-      font-size: 1.3rem;
+      font-size: 1.45rem;
+      color: #ffffff;
+      max-width: 850px;
+      margin: 0 auto 14px;
+      font-weight: 700;
+    }
+
+    .subtagline {
+      font-size: 1.1rem;
       color: #d9d9d9;
       max-width: 850px;
       margin: 0 auto 35px;
@@ -54,10 +68,10 @@
       display: inline-block;
       background: #7cff00;
       color: #000000;
-      padding: 14px 30px;
+      padding: 15px 32px;
       border-radius: 999px;
       text-decoration: none;
-      font-weight: 700;
+      font-weight: 800;
       transition: all 0.2s ease;
       box-shadow: 0 0 20px rgba(124, 255, 0, 0.25);
     }
@@ -67,16 +81,16 @@
       box-shadow: 0 0 28px rgba(124, 255, 0, 0.4);
     }
 
+    .secondary-note {
+      margin-top: 14px;
+      color: #a0a0a0;
+      font-size: 0.95rem;
+    }
+
     section {
       max-width: 1200px;
       margin: auto;
       padding: 60px 20px;
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 30px;
-      font-size: 2rem;
     }
 
     .card {
@@ -85,6 +99,40 @@
       border-radius: 16px;
       padding: 24px;
       margin: 16px 0;
+    }
+
+    .highlight-card {
+      border-color: #7cff00;
+      box-shadow: 0 0 24px rgba(124, 255, 0, 0.12);
+    }
+
+    .testimonial {
+      max-width: 700px;
+      margin: 35px auto 0;
+      text-align: center;
+      background: #0d0d0d;
+      border: 1px solid #2f4f1f;
+      border-radius: 16px;
+      padding: 22px;
+    }
+
+    .stars {
+      color: #7cff00;
+      font-size: 1.2rem;
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .quote {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .quote-source {
+      color: #a0a0a0;
+      font-size: 0.95rem;
+      margin-top: 8px;
     }
 
     iframe {
@@ -128,8 +176,24 @@
       gap: 16px;
     }
 
+    .steps {
+      counter-reset: step;
+    }
+
+    .step {
+      position: relative;
+    }
+
+    .step strong {
+      color: #7cff00;
+    }
+
     a {
       color: #7cff00;
+    }
+
+    .center {
+      text-align: center;
     }
 
     .links {
@@ -161,13 +225,15 @@
 <body>
 
 <header>
-  <h1>
-    <span class="brand-green">UPS</span>Link
-  </h1>
+  <h1><span class="brand-green">UPS</span>Link</h1>
 
   <p class="tagline">
-    Simple Android UPS monitoring for NUT, Unraid, Synology,
-    Proxmox, TrueNAS, Raspberry Pi, and Linux UPS servers.
+    Know when your UPS is on battery before your servers go dark.
+  </p>
+
+  <p class="subtagline">
+    UPSLink turns your Android phone into a simple UPS monitor for NUT,
+    Unraid, Synology, Proxmox, TrueNAS, Raspberry Pi, and Linux UPS servers.
   </p>
 
   <a
@@ -176,7 +242,48 @@
     target="_blank">
     Download on Google Play
   </a>
+
+  <div class="secondary-note">
+    No account required. Connect directly to your own NUT server.
+  </div>
+
+  <div class="testimonial">
+    <div class="stars">★★★★★</div>
+    <p class="quote">“Fantastic app.”</p>
+    <div class="quote-source">5-star Google Play review</div>
+  </div>
 </header>
+
+<section>
+  <h2>Stop guessing if your UPS is protecting your setup</h2>
+
+  <div class="grid">
+    <div class="card highlight-card">
+      <h3>The Problem</h3>
+      <p>
+        Your UPS may be quietly handling outages, low battery events, or runtime issues,
+        but the warning signs are often buried on a server, NAS, or dashboard you rarely check.
+      </p>
+    </div>
+
+    <div class="card highlight-card">
+      <h3>The Solution</h3>
+      <p>
+        UPSLink brings UPS status, alerts, runtime, battery health, and widgets directly
+        to your Android phone so you can react before power problems become server problems.
+      </p>
+    </div>
+  </div>
+
+  <div class="bottom-download">
+    <a
+      class="button"
+      href="https://play.google.com/store/apps/details?id=com.reelmemories.upslink"
+      target="_blank">
+      Get UPSLink for Android
+    </a>
+  </div>
+</section>
 
 <section>
   <h2>Watch the Demo</h2>
@@ -187,6 +294,27 @@
       title="UPSLink Demo"
       allowfullscreen>
     </iframe>
+  </div>
+</section>
+
+<section>
+  <h2>How it works</h2>
+
+  <div class="grid steps">
+    <div class="card step">
+      <h3>1. Connect</h3>
+      <p>Add your NUT server, Synology NAS, Unraid server, Proxmox host, or Linux UPS server.</p>
+    </div>
+
+    <div class="card step">
+      <h3>2. Monitor</h3>
+      <p>View battery percentage, runtime remaining, UPS load, voltage, and live status.</p>
+    </div>
+
+    <div class="card step">
+      <h3>3. Get alerted</h3>
+      <p>Receive Android notifications for outages, low runtime, low battery, and connection issues.</p>
+    </div>
   </div>
 </section>
 
@@ -260,12 +388,21 @@
 </section>
 
 <section>
-  <h2>About UPSLink</h2>
+  <h2>Built for home labs, NAS owners, and small IT setups</h2>
 
   <div class="card">
     UPSLink connects directly to user-configured NUT (Network UPS Tools)
     servers and provides UPS status, battery runtime, load, voltage,
     notifications, diagnostics, and Android widgets from a simple mobile interface.
+  </div>
+
+  <div class="bottom-download">
+    <a
+      class="button"
+      href="https://play.google.com/store/apps/details?id=com.reelmemories.upslink"
+      target="_blank">
+      Download UPSLink on Google Play
+    </a>
   </div>
 </section>
 
@@ -277,15 +414,6 @@
     <a href="faq.md">FAQ</a>
     <a href="getting-started.md">Getting Started</a>
   </div>
-
-  <div class="bottom-download">
-    <a
-      class="button"
-      href="https://play.google.com/store/apps/details?id=com.reelmemories.upslink"
-      target="_blank">
-      Download UPSLink
-    </a>
-  </div>
 </section>
 
 <footer>
@@ -294,3 +422,4 @@
 
 </body>
 </html>
+```
