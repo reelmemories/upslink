@@ -1,530 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UPSLink - Android UPS Monitoring for NUT</title>
   <link rel="icon" type="image/png" href="assets/screenshots/upslink-icon.png?v=2">
   <link rel="apple-touch-icon" href="assets/screenshots/upslink-icon.png?v=2">
-  <meta name="theme-color" content="#7cff00">
-
-  <meta
-    name="description"
-    content="UPSLink is an Android app for monitoring UPS devices through NUT, Unraid, Synology, Proxmox, TrueNAS, Raspberry Pi, and Linux servers with alerts, widgets, and runtime tracking."
-  />
-
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #050505;
-      color: #ffffff;
-      line-height: 1.6;
-    }
-
-    header {
-      padding: 90px 20px 70px;
-      text-align: center;
-      background: linear-gradient(180deg, #0a0a0a 0%, #111111 60%, #050505 100%);
-      border-bottom: 1px solid #1d1d1d;
-    }
-
-    .brand-green {
-      color: #7cff00;
-    }
-
-    h1 {
-      font-size: 4rem;
-      margin: 0 0 18px;
-      letter-spacing: -2px;
-      font-weight: 800;
-    }
-
-    h2 {
-      text-align: center;
-      margin-bottom: 30px;
-      font-size: 2rem;
-    }
-
-    h3 {
-      margin-top: 0;
-    }
-
-    .tagline {
-      font-size: 1.45rem;
-      color: #ffffff;
-      max-width: 850px;
-      margin: 0 auto 14px;
-      font-weight: 700;
-    }
-
-    .subtagline {
-      font-size: 1.1rem;
-      color: #d9d9d9;
-      max-width: 850px;
-      margin: 0 auto 35px;
-    }
-
-    .button {
-      display: inline-block;
-      background: #7cff00;
-      color: #000000;
-      padding: 15px 32px;
-      border-radius: 999px;
-      text-decoration: none;
-      font-weight: 800;
-      transition: all 0.2s ease;
-      box-shadow: 0 0 20px rgba(124, 255, 0, 0.25);
-    }
-
-    .button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 28px rgba(124, 255, 0, 0.4);
-    }
-
-    .secondary-note {
-      margin-top: 14px;
-      color: #a0a0a0;
-      font-size: 0.95rem;
-    }
-
-    section {
-      max-width: 1200px;
-      margin: auto;
-      padding: 60px 20px;
-    }
-
-    .card {
-      background: #111111;
-      border: 1px solid #232323;
-      border-radius: 16px;
-      padding: 24px;
-      margin: 16px 0;
-    }
-
-    .highlight-card {
-      border-color: #7cff00;
-      box-shadow: 0 0 24px rgba(124, 255, 0, 0.12);
-    }
-
-    .testimonial-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 20px;
-      max-width: 900px;
-      margin: 35px auto 0;
-    }
-
-    .testimonial {
-      text-align: center;
-      background: #0d0d0d;
-      border: 1px solid #2f4f1f;
-      border-radius: 16px;
-      padding: 22px;
-    }
-
-    .stars {
-      color: #7cff00;
-      font-size: 1.2rem;
-      letter-spacing: 2px;
-      margin-bottom: 8px;
-    }
-
-    .quote {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin: 0;
-    }
-
-    .quote-source {
-      color: #a0a0a0;
-      font-size: 0.95rem;
-      margin-top: 8px;
-    }
-
-    iframe {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      border: 0;
-      border-radius: 16px;
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-
-    .gallery .card {
-      padding: 12px;
-      text-align: center;
-    }
-
-    .gallery h3 {
-      margin: 10px 0 15px;
-      color: #d9d9d9;
-      font-size: 1rem;
-    }
-
-    .gallery img {
-      width: 100%;
-      border-radius: 12px;
-      border: 1px solid #232323;
-      transition: transform 0.2s ease;
-    }
-
-    .gallery img:hover {
-      transform: scale(1.03);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-    }
-
-    .steps {
-      counter-reset: step;
-    }
-
-    .step {
-      position: relative;
-    }
-
-    .step strong {
-      color: #7cff00;
-    }
-
-    .feature-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 22px;
-    }
-
-    .feature-card {
-      background: linear-gradient(180deg, #121212 0%, #0b0b0b 100%);
-      border: 1px solid #263f18;
-      border-radius: 18px;
-      padding: 28px 22px;
-      text-align: center;
-      min-height: 170px;
-      box-shadow: 0 0 18px rgba(124, 255, 0, 0.06);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 0 24px rgba(124, 255, 0, 0.12);
-    }
-
-    .feature-icon {
-      font-size: 2rem;
-      margin-bottom: 12px;
-    }
-
-    .feature-card h3 {
-      color: #ffffff;
-      margin-bottom: 10px;
-    }
-
-    .feature-card p {
-      color: #cfcfcf;
-      margin: 0;
-      font-size: 0.95rem;
-    }
-
-    .platform-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 14px;
-      max-width: 900px;
-      margin: auto;
-    }
-
-    .platform-pill {
-      background: #111111;
-      border: 1px solid #263f18;
-      color: #ffffff;
-      padding: 14px 22px;
-      border-radius: 999px;
-      font-weight: 700;
-      box-shadow: 0 0 14px rgba(124, 255, 0, 0.05);
-    }
-
-    a {
-      color: #7cff00;
-    }
-
-    .center {
-      text-align: center;
-    }
-
-    .links {
-      text-align: center;
-    }
-
-    .links a {
-      display: inline-block;
-      margin: 10px 15px;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .bottom-download {
-      text-align: center;
-      margin-top: 35px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px;
-      color: #a0a0a0;
-      border-top: 1px solid #1d1d1d;
-      background: #0a0a0a;
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <meta name="theme-color" content="#080b0d">
+  <meta name="description" content="UPSLink is an Android app for monitoring UPS devices through NUT, Unraid, Synology, Proxmox, TrueNAS, Raspberry Pi, and Linux servers with alerts, widgets, and runtime tracking.">
 </head>
-
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
 
-<header>
-  <h1><span class="brand-green">UPS</span>Link</h1>
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="brand" href="index.html" aria-label="UPSLink home">
+        <img src="assets/screenshots/upslink-icon.png" alt="">
+        <span><span class="brand-green">UPS</span>Link</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="getting-started.html">Getting Started</a>
+        <a href="faq.html">FAQ</a>
+        <a href="privacy-policy.html">Privacy</a>
+        <a class="nav-cta" href="https://play.google.com/store/apps/details?id=com.reelmemories.upslink" target="_blank" rel="noopener">Google Play</a>
+      </nav>
+    </div>
+  </header>
 
-  <p class="tagline">
-    Know when your UPS is on battery before your servers go dark.
-  </p>
+  <main id="main-content">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Android monitoring for Network UPS Tools</span>
+          <h1>Know your power status. <em>Before it matters.</em></h1>
+          <p>UPSLink brings battery health, runtime, load, live status, alerts, and widgets from your NUT-compatible UPS directly to your Android device.</p>
+          <div class="hero-actions">
+            <a class="button" href="https://play.google.com/store/apps/details?id=com.reelmemories.upslink" target="_blank" rel="noopener">Get UPSLink on Google Play</a>
+            <a class="button button--secondary" href="#demo">Watch the demo</a>
+          </div>
+          <div class="trust-line"><span class="status-dot" aria-hidden="true"></span>Built for homelabs, NAS owners, and small IT setups</div>
+        </div>
+        <div class="hero-product" aria-label="UPSLink application preview">
+          <img class="hero-icon" src="assets/screenshots/upslink-icon.png" alt="UPSLink app icon">
+          <div class="product-window">
+            <img src="assets/screenshots/dashboard.png" alt="UPSLink dashboard showing connected UPS status and metrics">
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <p class="subtagline">
-    UPSLink turns your Android phone into a simple UPS monitor for NUT,
-    Unraid, Synology, Proxmox, TrueNAS, Raspberry Pi, and Linux UPS servers.
-  </p>
-
-  <a
-    class="button"
-    href="https://play.google.com/store/apps/details?id=com.reelmemories.upslink"
-    target="_blank">
-    Download on Google Play
-  </a>
-
-  <div class="testimonial-grid">
-
-    <div class="testimonial">
-      <div class="stars">★★★★★</div>
-      <p class="quote">“Fantastic app.”</p>
-      <div class="quote-source">5-star Google Play review</div>
+    <div class="metric-strip" aria-label="Product highlights">
+      <div class="metric"><strong>Direct connection</strong><span>No required cloud account</span></div>
+      <div class="metric"><strong>Live monitoring</strong><span>Battery, runtime, load, and voltage</span></div>
+      <div class="metric"><strong>Actionable alerts</strong><span>Know when conditions change</span></div>
     </div>
 
-    <div class="testimonial">
-      <p class="quote">
-        “I tried your app on an Android tablet. The installation was very quick and easy.
-        I really liked the user-friendly interface. Connecting to the Synology NAS UPS server is simple.”
-      </p>
-      <div class="quote-source">Reddit user feedback</div>
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Power awareness</span>
+          <h2>Stop guessing if your UPS is protecting your setup</h2>
+        </div>
+        <div class="problem-grid">
+          <article class="card problem-card">
+            <h3>The problem</h3>
+            <p>Your UPS may be quietly handling outages, low battery events, or runtime issues, but the warning signs are often buried on a server, NAS, or dashboard you rarely check.</p>
+          </article>
+          <article class="card problem-card">
+            <h3>The UPSLink approach</h3>
+            <p>UPSLink brings UPS status, alerts, runtime, battery health, and widgets directly to your Android phone so you can react before power problems become server problems.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tinted">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Simple setup</span>
+          <h2>From server to status in three steps</h2>
+          <p>Connect to the infrastructure you already operate. No new monitoring stack required.</p>
+        </div>
+        <div class="steps-grid">
+          <article class="card step-card"><span class="step-number">01</span><h3>Connect</h3><p>Add your NUT server, Synology NAS, Unraid server, Proxmox host, or Linux UPS server.</p></article>
+          <article class="card step-card"><span class="step-number">02</span><h3>Monitor</h3><p>View battery percentage, runtime remaining, UPS load, voltage, and live status.</p></article>
+          <article class="card step-card"><span class="step-number">03</span><h3>Get alerted</h3><p>Receive Android notifications for outages, low runtime, low battery, and connection issues.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="demo">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Product tour</span>
+          <h2>See UPSLink in action</h2>
+          <p>A quick look at the monitoring experience on Android.</p>
+        </div>
+        <div class="video-frame">
+          <iframe src="https://www.youtube.com/embed/r_Zb1Au1fOM" title="UPSLink product demonstration" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tinted">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">The app</span>
+          <h2>Your UPS, clearly presented</h2>
+          <p>Purpose-built views keep important status and configuration details easy to find.</p>
+        </div>
+        <div class="gallery">
+          <figure class="screenshot-card screenshot-card--wide">
+            <figcaption class="screenshot-label"><strong>Dashboard</strong><span>At a glance</span></figcaption>
+            <div class="screenshot-canvas"><img src="assets/screenshots/dashboard.png" alt="UPSLink dashboard with UPS connection cards and status overview" loading="lazy"></div>
+          </figure>
+          <figure class="screenshot-card screenshot-card--wide">
+            <figcaption class="screenshot-label"><strong>Overview</strong><span>Live status</span></figcaption>
+            <div class="screenshot-canvas"><img src="assets/screenshots/overview.png" alt="UPSLink overview screen showing detailed UPS status" loading="lazy"></div>
+          </figure>
+          <figure class="screenshot-card">
+            <figcaption class="screenshot-label"><strong>Metrics</strong><span>Telemetry</span></figcaption>
+            <div class="screenshot-canvas"><img src="assets/screenshots/metrics.png" alt="UPSLink metrics screen showing battery and power data" loading="lazy"></div>
+          </figure>
+          <figure class="screenshot-card">
+            <figcaption class="screenshot-label"><strong>Alerts</strong><span>Notifications</span></figcaption>
+            <div class="screenshot-canvas"><img src="assets/screenshots/alerts.png" alt="UPSLink alert configuration screen" loading="lazy"></div>
+          </figure>
+          <figure class="screenshot-card">
+            <figcaption class="screenshot-label"><strong>Setup wizard</strong><span>Onboarding</span></figcaption>
+            <div class="screenshot-canvas"><img src="assets/screenshots/setup.png" alt="UPSLink connection setup wizard" loading="lazy"></div>
+          </figure>
+          <figure class="screenshot-card">
+            <figcaption class="screenshot-label"><strong>Settings</strong><span>Controls</span></figcaption>
+            <div class="screenshot-canvas"><img src="assets/screenshots/settings.png" alt="UPSLink application settings screen" loading="lazy"></div>
+          </figure>
+          <figure class="screenshot-card">
+            <figcaption class="screenshot-label"><strong>Advanced features</strong><span>Tooling</span></figcaption>
+            <div class="screenshot-canvas"><img src="assets/screenshots/advanced_features.png" alt="UPSLink advanced diagnostics and monitoring features" loading="lazy"></div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Capabilities</span>
+          <h2>Everything you need to stay informed</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="card feature-card"><span class="feature-icon">DISC</span><h3>Automatic discovery</h3><p>Find compatible NUT servers quickly on your network.</p></article>
+          <article class="card feature-card"><span class="feature-icon">BATT</span><h3>Battery runtime</h3><p>Monitor battery percentage, runtime, load, and status.</p></article>
+          <article class="card feature-card"><span class="feature-icon">ALRT</span><h3>Outage alerts</h3><p>Get notified when your UPS switches to battery power.</p></article>
+          <article class="card feature-card"><span class="feature-icon">WDGT</span><h3>Android widgets</h3><p>See UPS status directly from your home screen.</p></article>
+          <article class="card feature-card"><span class="feature-icon">MULT</span><h3>Multiple UPS support</h3><p>Monitor more than one UPS or NUT server connection.</p></article>
+          <article class="card feature-card"><span class="feature-icon">DIAG</span><h3>Diagnostics</h3><p>Useful tools for testing, troubleshooting, and monitoring.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--tinted">
+      <div class="container">
+        <div class="section-heading">
+          <span class="eyebrow">Compatibility</span>
+          <h2>Works with the platforms homelabs rely on</h2>
+        </div>
+        <ul class="platform-list" aria-label="Supported platforms">
+          <li>Unraid</li><li>Synology NAS</li><li>Proxmox</li><li>TrueNAS</li><li>Raspberry Pi</li><li>Linux NUT servers</li>
+        </ul>
+        <div class="reviews">
+          <article class="card review"><div class="review-stars" aria-label="5 out of 5 stars">★★★★★</div><blockquote>“Fantastic app.”</blockquote><cite>5-star Google Play review</cite></article>
+          <article class="card review"><blockquote>“The installation was very quick and easy. I really liked the user-friendly interface. Connecting to the Synology NAS UPS server is simple.”</blockquote><cite>Reddit user feedback</cite></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta-panel">
+          <div>
+            <span class="eyebrow">Stay ahead of outages</span>
+            <h2>Put your UPS status where you will actually see it.</h2>
+            <p>Connect directly to your NUT server and start monitoring from Android.</p>
+          </div>
+          <a class="button" href="https://play.google.com/store/apps/details?id=com.reelmemories.upslink" target="_blank" rel="noopener">Download UPSLink</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-copy">
+        <a class="brand" href="index.html"><img src="assets/screenshots/upslink-icon.png" alt=""><span><span class="brand-green">UPS</span>Link</span></a>
+        <p>Simple Android monitoring for NUT-compatible UPS devices across your homelab and small IT environment.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="getting-started.html">Getting Started</a><a href="faq.html">FAQ</a><a href="privacy-policy.html">Privacy Policy</a><a href="https://play.google.com/store/apps/details?id=com.reelmemories.upslink" target="_blank" rel="noopener">Google Play</a>
+      </nav>
     </div>
-
-  </div>
-
-  <div class="secondary-note" style="margin-top:20px;">
-    Trusted by Synology, Unraid, Proxmox, TrueNAS, and homelab users looking for a simple way to monitor NUT-compatible UPS devices.
-  </div>
-</header>
-
-<section>
-  <h2>Stop guessing if your UPS is protecting your setup</h2>
-
-  <div class="grid">
-    <div class="card highlight-card">
-      <h3>The Problem</h3>
-      <p>
-        Your UPS may be quietly handling outages, low battery events, or runtime issues,
-        but the warning signs are often buried on a server, NAS, or dashboard you rarely check.
-      </p>
-    </div>
-
-    <div class="card highlight-card">
-      <h3>The Solution</h3>
-      <p>
-        UPSLink brings UPS status, alerts, runtime, battery health, and widgets directly
-        to your Android phone so you can react before power problems become server problems.
-      </p>
-    </div>
-  </div>
-
-  <div class="bottom-download">
-    <a
-      class="button"
-      href="https://play.google.com/store/apps/details?id=com.reelmemories.upslink"
-      target="_blank">
-      Get UPSLink for Android
-    </a>
-  </div>
-</section>
-
-<section>
-  <h2>See UPSLink in Action</h2>
-
-  <div class="card">
-<iframe
-  src="https://www.youtube.com/embed/r_Zb1Au1fOM"
-  title="UPSLink Promo"
-  allowfullscreen>
-</iframe>
-  </div>
-</section>
-
-<section>
-  <h2>How it works</h2>
-
-  <div class="grid steps">
-    <div class="card step">
-      <h3>1. Connect</h3>
-      <p>Add your NUT server, Synology NAS, Unraid server, Proxmox host, or Linux UPS server.</p>
-    </div>
-
-    <div class="card step">
-      <h3>2. Monitor</h3>
-      <p>View battery percentage, runtime remaining, UPS load, voltage, and live status.</p>
-    </div>
-
-    <div class="card step">
-      <h3>3. Get alerted</h3>
-      <p>Receive Android notifications for outages, low runtime, low battery, and connection issues.</p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <h2>Screenshots</h2>
-
-  <div class="gallery">
-
-    <div class="card">
-      <h3>Dashboard</h3>
-      <img src="assets/screenshots/dashboard.png" alt="UPSLink Dashboard">
-    </div>
-
-    <div class="card">
-      <h3>Overview</h3>
-      <img src="assets/screenshots/overview.png" alt="UPSLink Overview">
-    </div>
-
-    <div class="card">
-      <h3>Metrics</h3>
-      <img src="assets/screenshots/metrics.png" alt="UPSLink Metrics">
-    </div>
-
-    <div class="card">
-      <h3>Alerts</h3>
-      <img src="assets/screenshots/alerts.png" alt="UPSLink Alerts">
-    </div>
-
-    <div class="card">
-      <h3>Setup Wizard</h3>
-      <img src="assets/screenshots/setup.png" alt="UPSLink Setup Wizard">
-    </div>
-
-    <div class="card">
-      <h3>Settings</h3>
-      <img src="assets/screenshots/settings.png" alt="UPSLink Settings">
-    </div>
-
-    <div class="card">
-      <h3>Advanced Features</h3>
-      <img src="assets/screenshots/advanced_features.png" alt="UPSLink Advanced Features">
-    </div>
-
-  </div>
-</section>
-
-<section>
-  <h2>Features</h2>
-
-  <div class="feature-grid">
-    <div class="feature-card">
-      <div class="feature-icon">🔍</div>
-      <h3>Automatic Discovery</h3>
-      <p>Find compatible NUT servers quickly on your network.</p>
-    </div>
-
-    <div class="feature-card">
-      <div class="feature-icon">🔋</div>
-      <h3>Battery Runtime</h3>
-      <p>Monitor battery percentage, runtime, load, and status.</p>
-    </div>
-
-    <div class="feature-card">
-      <div class="feature-icon">⚡</div>
-      <h3>Outage Alerts</h3>
-      <p>Get notified when your UPS switches to battery power.</p>
-    </div>
-
-    <div class="feature-card">
-      <div class="feature-icon">📱</div>
-      <h3>Android Widgets</h3>
-      <p>See UPS status directly from your home screen.</p>
-    </div>
-
-    <div class="feature-card">
-      <div class="feature-icon">🖥️</div>
-      <h3>Multiple UPS Support</h3>
-      <p>Monitor more than one UPS or NUT server connection.</p>
-    </div>
-
-    <div class="feature-card">
-      <div class="feature-icon">🛠️</div>
-      <h3>Diagnostics</h3>
-      <p>Useful tools for testing, troubleshooting, and monitoring.</p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <h2>Supported Platforms</h2>
-
-  <div class="platform-grid">
-    <div class="platform-pill">Unraid</div>
-    <div class="platform-pill">Synology NAS</div>
-    <div class="platform-pill">Proxmox</div>
-    <div class="platform-pill">TrueNAS</div>
-    <div class="platform-pill">Raspberry Pi</div>
-    <div class="platform-pill">Linux NUT Servers</div>
-  </div>
-</section>
-
-<section>
-  <h2>Built for home labs, NAS owners, and small IT setups</h2>
-
-  <div class="card">
-    UPSLink connects directly to user-configured NUT (Network UPS Tools)
-    servers and provides UPS status, battery runtime, load, voltage,
-    notifications, diagnostics, and Android widgets from a simple mobile interface.
-  </div>
-
-  <div class="bottom-download">
-    <a
-      class="button"
-      href="https://play.google.com/store/apps/details?id=com.reelmemories.upslink"
-      target="_blank">
-      Download UPSLink on Google Play
-    </a>
-  </div>
-</section>
-
-<section>
-  <h2>Resources</h2>
-
-  <div class="links">
-    <a href="privacy-policy.html">Privacy Policy</a>
-    <a href="faq.html">FAQ</a>
-    <a href="getting-started.html">Getting Started</a>
-  </div>
-</section>
-
-<footer>
-  UPSLink © 2026
-</footer>
-
+    <div class="footer-meta">UPSLink © 2026</div>
+  </footer>
 </body>
 </html>

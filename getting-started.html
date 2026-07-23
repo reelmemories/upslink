@@ -3,215 +3,66 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>UPSLink Getting Started</title>
   <link rel="icon" type="image/png" href="assets/screenshots/upslink-icon.png?v=2">
-<link rel="apple-touch-icon" href="assets/screenshots/upslink-icon.png?v=2">
-<meta name="theme-color" content="#7cff00">
-
-  <meta
-    name="description"
-    content="Quick start guide for connecting UPSLink to your NUT, Synology, Unraid, Proxmox, TrueNAS, Raspberry Pi, or Linux UPS server."
-  >
-
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #050505;
-      color: #ffffff;
-      line-height: 1.7;
-    }
-
-    header {
-      text-align: center;
-      padding: 70px 20px;
-      background: linear-gradient(
-        180deg,
-        #0a0a0a 0%,
-        #111111 60%,
-        #050505 100%
-      );
-      border-bottom: 1px solid #1d1d1d;
-    }
-
-    h1 {
-      font-size: 3rem;
-      margin: 0;
-    }
-
-    .brand-green {
-      color: #7cff00;
-    }
-
-    .subtitle {
-      color: #cfcfcf;
-      margin-top: 15px;
-      font-size: 1.1rem;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 50px 20px;
-    }
-
-    .card {
-      background: #111111;
-      border: 1px solid #232323;
-      border-radius: 16px;
-      padding: 28px;
-      margin-bottom: 24px;
-    }
-
-    h2 {
-      color: #7cff00;
-      margin-top: 0;
-      margin-bottom: 16px;
-    }
-
-    ol {
-      padding-left: 24px;
-    }
-
-    li {
-      margin-bottom: 14px;
-    }
-
-    .tip {
-      background: #0d1600;
-      border: 1px solid #2d4d00;
-      border-radius: 12px;
-      padding: 20px;
-      margin-top: 25px;
-    }
-
-    .tip img {
-      width: 100%;
-      margin-top: 15px;
-      border-radius: 12px;
-      border: 1px solid #232323;
-      display: block;
-    }
-
-    a {
-      color: #7cff00;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .back-link {
-      display: inline-block;
-      margin-top: 30px;
-      padding: 12px 24px;
-      background: #7cff00;
-      color: #000000;
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: 999px;
-    }
-
-    .back-link:hover {
-      opacity: 0.9;
-      text-decoration: none;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px;
-      color: #888888;
-      border-top: 1px solid #1d1d1d;
-      background: #0a0a0a;
-    }
-  </style>
+  <link rel="apple-touch-icon" href="assets/screenshots/upslink-icon.png?v=2">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <meta name="theme-color" content="#080b0d">
+  <meta name="description" content="Quick start guide for connecting UPSLink to your NUT, Synology, Unraid, Proxmox, TrueNAS, Raspberry Pi, or Linux UPS server.">
 </head>
-
 <body>
-
-<header>
-  <h1><span class="brand-green">UPS</span>Link</h1>
-  <p class="subtitle">Getting Started</p>
-</header>
-
-<div class="container">
-
-  <div class="card">
-    <h2>Connect Your First UPS</h2>
-
-    <ol>
-      <li>
-        Install UPSLink from Google Play.
-      </li>
-
-      <li>
-        Configure your NUT server on Synology, Unraid, Proxmox,
-        TrueNAS, Raspberry Pi, or another supported platform.
-      </li>
-
-      <li>
-        Open UPSLink and tap <strong>Add Connection</strong>.
-      </li>
-
-      <li>
-        Enter your NUT server IP address, port, and credentials
-        if required.
-      </li>
-
-      <li>
-        Tap <strong>Discover Devices</strong> to find available UPS devices.
-      </li>
-
-      <li>
-        Select the UPS device you want to monitor.
-      </li>
-
-      <li>
-        Enable notifications for power outages, low battery,
-        runtime warnings, and connection alerts.
-      </li>
-
-      <li>
-        Optionally add an Android home screen widget for quick
-        UPS status visibility.
-      </li>
-    </ol>
-
-    <div class="tip">
-      <strong>Tip for Synology Users</strong>
-
-      <p>
-        If UPSLink cannot discover your UPS automatically, ensure that
-        <strong>Enable Network UPS Server</strong> is enabled in DSM and that
-        your Android device IP address has been added to the
-        <strong>Permitted DiskStation Devices</strong> list.
-      </p>
-
-      <p>
-        Navigate to:
-        <strong>Control Panel → Hardware &amp; Power → UPS</strong>
-      </p>
-
-      <img
-        src="assets/screenshots/synology_configuration.png"
-        alt="Synology UPS Network Server Configuration"
-      >
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="brand" href="index.html" aria-label="UPSLink home"><img src="assets/screenshots/upslink-icon.png" alt=""><span><span class="brand-green">UPS</span>Link</span></a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="index.html">Home</a><a href="getting-started.html" aria-current="page">Getting Started</a><a href="faq.html">FAQ</a><a href="privacy-policy.html">Privacy</a>
+        <a class="nav-cta" href="https://play.google.com/store/apps/details?id=com.reelmemories.upslink" target="_blank" rel="noopener">Google Play</a>
+      </nav>
     </div>
-
-  </div>
-
-  <a class="back-link" href="index.html">
-    ← Back to UPSLink
-  </a>
-
-</div>
-
-<footer>
-  UPSLink © 2026
-</footer>
-
+  </header>
+  <main id="main-content">
+    <header class="page-hero">
+      <div class="copy-container">
+        <span class="eyebrow">Quick-start guide</span>
+        <h1>Connect your first UPS</h1>
+        <p>Go from an existing NUT server to live Android monitoring in a few straightforward steps.</p>
+      </div>
+    </header>
+    <div class="copy-container guide">
+      <section class="card guide-intro" aria-labelledby="before-heading">
+        <h2 id="before-heading">Before you begin</h2>
+        <p>Make sure your Android device can reach the NUT server on your local network. The default NUT port is <code>3493</code>.</p>
+      </section>
+      <ol class="onboarding-list">
+        <li><strong>Install UPSLink</strong><span>Download UPSLink from Google Play on the Android device you want to use for monitoring.</span></li>
+        <li><strong>Configure your NUT server</strong><span>Set up NUT on Synology, Unraid, Proxmox, TrueNAS, Raspberry Pi, or another supported platform.</span></li>
+        <li><strong>Add a connection</strong><span>Open UPSLink and tap <strong>Add Connection</strong>.</span></li>
+        <li><strong>Enter the server details</strong><span>Provide your NUT server IP address, port, and credentials if required.</span></li>
+        <li><strong>Discover devices</strong><span>Tap <strong>Discover Devices</strong> to find the UPS devices exposed by your server.</span></li>
+        <li><strong>Select your UPS</strong><span>Choose the UPS device you want UPSLink to monitor.</span></li>
+        <li><strong>Configure alerts</strong><span>Enable notifications for power outages, low battery, runtime warnings, and connection issues.</span></li>
+        <li><strong>Add a widget</strong><span>Optionally add an Android home screen widget for at-a-glance UPS status.</span></li>
+      </ol>
+      <aside class="notice">
+        <span class="notice__label">Synology note</span>
+        <h2>Allow your Android device in DSM</h2>
+        <p>If UPSLink cannot discover your UPS automatically, ensure that <strong>Enable Network UPS Server</strong> is enabled and your Android device IP address is in the <strong>Permitted DiskStation Devices</strong> list.</p>
+        <p>Navigate to <strong>Control Panel → Hardware &amp; Power → UPS</strong>.</p>
+        <img src="assets/screenshots/synology_configuration.png" alt="Synology DSM UPS settings with Network UPS Server configuration" loading="lazy">
+      </aside>
+      <div class="page-actions">
+        <a class="button" href="https://play.google.com/store/apps/details?id=com.reelmemories.upslink" target="_blank" rel="noopener">Get UPSLink</a>
+        <a class="button button--secondary" href="faq.html">Troubleshoot in the FAQ</a>
+      </div>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-copy"><a class="brand" href="index.html"><img src="assets/screenshots/upslink-icon.png" alt=""><span><span class="brand-green">UPS</span>Link</span></a><p>Simple Android monitoring for NUT-compatible UPS devices.</p></div>
+      <nav class="footer-links" aria-label="Footer navigation"><a href="index.html">Home</a><a href="faq.html">FAQ</a><a href="privacy-policy.html">Privacy Policy</a><a href="https://play.google.com/store/apps/details?id=com.reelmemories.upslink" target="_blank" rel="noopener">Google Play</a></nav>
+    </div>
+    <div class="footer-meta">UPSLink © 2026</div>
+  </footer>
 </body>
 </html>
-
