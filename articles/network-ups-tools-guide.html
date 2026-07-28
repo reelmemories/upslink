@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Network UPS Tools Guide for Homelabs | UPSLink</title>
+  <meta name="description" content="Network UPS Tools guide for homelabs: understand NUT monitoring, UPS runtime, battery data, graceful shutdowns, and Android UPS monitoring with UPSLink.">
+  <link rel="canonical" href="https://reelmemories.github.io/upslink/articles/network-ups-tools-guide.html">
+  <link rel="icon" type="image/png" href="../assets/screenshots/upslink-icon.png?v=2">
+  <link rel="apple-touch-icon" href="../assets/screenshots/upslink-icon.png?v=2">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <meta name="theme-color" content="#080b0d">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Network UPS Tools: The Complete Homelab Guide">
+  <meta property="og:description" content="Learn how NUT UPS monitoring works, how to plan graceful shutdowns, and how to check a NUT server from Android with UPSLink.">
+  <meta property="og:url" content="https://reelmemories.github.io/upslink/articles/network-ups-tools-guide.html">
+  <meta property="og:image" content="https://reelmemories.github.io/upslink/assets/screenshots/dashboard.png">
+  <meta property="og:site_name" content="UPSLink">
+  <meta property="article:published_time" content="2026-07-28">
+  <meta property="article:modified_time" content="2026-07-28">
+  <meta property="article:section" content="UPS Monitoring">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Network UPS Tools: The Complete Homelab Guide">
+  <meta name="twitter:description" content="A practical guide to NUT servers, UPS battery monitoring, runtime visibility, graceful shutdowns, and Android monitoring.">
+  <meta name="twitter:image" content="https://reelmemories.github.io/upslink/assets/screenshots/dashboard.png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Article",
+        "headline": "Network UPS Tools: The Complete Homelab Guide",
+        "description": "A practical guide to Network UPS Tools, NUT monitoring, UPS battery and runtime data, graceful shutdown planning, and Android monitoring with UPSLink.",
+        "datePublished": "2026-07-28",
+        "dateModified": "2026-07-28",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://reelmemories.github.io/upslink/articles/network-ups-tools-guide.html"
+        },
+        "image": "https://reelmemories.github.io/upslink/assets/screenshots/dashboard.png",
+        "publisher": {
+          "@type": "Organization",
+          "name": "UPSLink",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://reelmemories.github.io/upslink/assets/screenshots/upslink-icon.png"
+          }
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is Network UPS Tools?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Network UPS Tools, usually called NUT, is a free and open-source toolkit that provides a common way to monitor and manage UPS systems and other power devices across many manufacturers and connection types."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I run a NUT server on a Raspberry Pi?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. A Raspberry Pi can run a NUT driver and upsd for a compatible USB, serial, or network-connected UPS. It can then share UPS status with authorized clients on the network."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does NUT work with APC and CyberPower UPS devices?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "NUT supports many APC and CyberPower models, but support depends on the exact model, connection method, and driver. Check the official NUT hardware compatibility list before buying or configuring a device."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What port does a NUT server use?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The NUT data server upsd listens on TCP port 3493 by default. Access should be limited to trusted networks or a secure VPN rather than exposed directly to the public internet."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can UPSLink shut down my servers?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "UPSLink is an Android monitoring companion for NUT. Graceful shutdown behavior should be configured on the protected systems with NUT components such as upsmon and, where appropriate, upssched."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How can I monitor a NUT UPS from Android?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Run and secure a NUT server on your network, then connect an Android NUT monitoring app such as UPSLink to the server address and port. UPSLink presents UPS status, battery, runtime, load, alerts, and widgets on Android."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="brand" href="../index.html" aria-label="UPSLink home">
+        <img src="../assets/screenshots/upslink-icon.png" alt="" width="1024" height="1024">
+        <span><span class="brand-green">UPS</span>Link</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="../index.html">Home</a>
+        <a href="../getting-started.html">Getting Started</a>
+        <a href="../faq.html">FAQ</a>
+        <a href="../privacy-policy.html">Privacy</a>
+        <a class="nav-cta" href="https://play.google.com/store/apps/details?id=com.reelmemories.upslink" target="_blank" rel="noopener">Google Play</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <header class="article-hero">
+      <div class="container article-hero__inner">
+        <span class="eyebrow">Homelab power guide</span>
+        <h1>Network UPS Tools: The Complete Homelab Guide</h1>
+        <p class="article-hero__dek">Learn how NUT turns a compatible UPS into shared power intelligence for your servers, NAS, Raspberry Pi, and Android phone—and how that visibility supports safer shutdown decisions.</p>
+        <div class="article-meta">
+          <span>Published <time datetime="2026-07-28">July 28, 2026</time></span>
+          <span>Last updated <time datetime="2026-07-28">July 28, 2026</time></span>
+          <span>14-minute read</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="container article-layout">
+      <article class="article-body">
+        <div class="article-summary">
+          <strong>What this guide covers</strong>
+          <p>Network UPS Tools (NUT) is a mature, open-source way to monitor many different power devices through one consistent interface. This guide explains the NUT server model, common homelab setups, UPS battery monitoring, runtime data, graceful shutdown planning, Raspberry Pi NUT deployments, hardware compatibility, and Android monitoring with UPSLink.</p>
+        </div>
+
+        <h2 id="why-ups-visibility-matters">Your homelab needs more than battery backup</h2>
+        <p>You built your homelab to keep useful services under your control. It may hold family backups, media, home automation, development environments, security tools, or business systems. You are the person responsible for keeping that infrastructure healthy when utility power becomes unreliable.</p>
+        <p>A UPS gives the equipment time, but time alone is not a strategy. If nobody knows the UPS is on battery, how much runtime remains, or whether the battery is healthy, a short outage can quietly become an abrupt shutdown. File systems, databases, virtual machines, and storage arrays do not benefit from discovering the end of the battery at the same moment power disappears.</p>
+        <p>The villain is not merely a blackout. It is <strong>unexpected power loss combined with poor UPS visibility</strong>. A UPS may be protecting the rack while its warnings remain trapped in a vendor utility on one machine. A worn battery may report much less UPS runtime than expected. A network switch may lose power before secondary servers receive a shutdown message. A USB cable connected to one host may leave every other device unaware of the power event.</p>
+        <p>Good UPS monitoring changes the situation. It lets protected systems observe the same power state, gives administrators time to investigate battery and load conditions, and provides the information needed for a planned graceful shutdown. That is the problem Network UPS Tools was designed to solve.</p>
+
+        <h2 id="what-is-nut">What is Network UPS Tools?</h2>
+        <p><a href="https://networkupstools.org/" target="_blank" rel="noopener">Network UPS Tools</a>, commonly shortened to NUT, is a free and open-source toolkit for monitoring and managing UPS systems and other power devices. The project provides a common protocol, tools, and data model across a broad range of manufacturer-specific hardware and communication methods.</p>
+        <p>That common layer is the key idea. An APC UPS, CyberPower UPS, Eaton unit, or another supported device may expose information in a different way. NUT drivers translate device-specific protocols into consistent variables and status values that NUT clients can understand. Instead of every monitoring tool needing custom knowledge of every model, it can communicate with the NUT server.</p>
+        <p>The official project describes support for UPS devices as well as power distribution units, automatic transfer switches, power supply units, and solar controllers. It can communicate over USB, serial, and network protocols where suitable drivers exist. The exact capabilities still depend on the device, connection, firmware, and selected driver, so the official compatibility information should always be your source of truth.</p>
+        <p>NUT has become an industry-standard choice for Linux and self-hosted environments because it separates hardware communication from network access and client behavior. That modular approach works for a single computer beside a UPS, but it also scales to one UPS protecting several machines.</p>
+
+        <h2 id="architecture">How a NUT server works</h2>
+        <p>NUT uses a layered driver, server, and client architecture. The layers may run on one host or be distributed across a network, depending on the setup.</p>
+
+        <div class="architecture-grid">
+          <section class="architecture-card">
+            <span>01</span>
+            <h3>UPS driver</h3>
+            <p>A device-specific driver communicates with the UPS through USB, serial, SNMP, or another supported method and translates its data into standard NUT variables.</p>
+          </section>
+          <section class="architecture-card">
+            <span>02</span>
+            <h3>NUT data server</h3>
+            <p><code>upsd</code> makes the driver data available to authorized clients over the network. Its default TCP port is <code>3493</code>.</p>
+          </section>
+          <section class="architecture-card">
+            <span>03</span>
+            <h3>NUT clients</h3>
+            <p>Clients query status, record data, show dashboards, send notifications, or trigger local shutdown behavior based on the UPS state.</p>
+          </section>
+        </div>
+
+        <p>On the machine physically connected to the UPS, a driver talks to the hardware. The NUT data server, <code>upsd</code>, publishes the available information. A command-line tool such as <code>upsc</code>, a monitoring daemon such as <code>upsmon</code>, or a third-party UPS monitoring app can then act as a client.</p>
+        <p>This separation is why the word “Network” matters. The server attached to the USB cable does not have to be the only machine that knows about the UPS. Other systems can connect to the NUT server across a trusted network, observe the power state, and follow their own shutdown policy.</p>
+
+        <div class="article-note">
+          <p><strong>Keep the network path powered.</strong> If secondary machines rely on a NUT server during an outage, the switches, routers, bridges, and access points between them must also remain powered long enough for monitoring and shutdown communication to work.</p>
+        </div>
+
+        <h2 id="monitoring-data">What NUT UPS monitoring can show you</h2>
+        <p>The data available through NUT depends on what the UPS and driver report. A basic model may expose only a small set of values. A more capable device may provide detailed electrical measurements, battery information, alarms, and controllable settings.</p>
+        <p>Common NUT monitoring data can include:</p>
+        <ul>
+          <li>Current UPS status, including online, on battery, or low battery conditions</li>
+          <li>Battery charge percentage and estimated UPS runtime remaining</li>
+          <li>UPS load percentage and apparent or real power where reported</li>
+          <li>Input and output voltage, frequency, and transfer conditions</li>
+          <li>Battery voltage, replacement indicators, and manufacturer data</li>
+          <li>Device model, serial number, firmware, and driver information</li>
+          <li>Alarm states and other hardware-specific measurements</li>
+        </ul>
+        <p>UPS battery monitoring is most useful when you treat the numbers as operational signals rather than guarantees. Runtime is an estimate influenced by battery age, temperature, current load, calibration, and the UPS model. A dashboard showing 20 minutes under a light load does not promise the same runtime after more equipment is added.</p>
+        <p>Watch trends and validate assumptions. If the same load produces noticeably less runtime over time, investigate battery condition. If load percentage rises after adding a server, confirm that your shutdown sequence still leaves enough margin. Avoid running destructive battery tests on critical equipment without understanding the risk and the manufacturer’s instructions.</p>
+
+        <h2 id="graceful-shutdown">NUT and graceful shutdown</h2>
+        <p>A graceful shutdown is the controlled process of stopping applications, flushing writes, closing databases, unmounting storage, and powering off an operating system before the UPS battery is exhausted. NUT can support this workflow, but it must be configured and tested on the systems being protected.</p>
+        <p>The standard NUT client <code>upsmon</code> monitors UPS state and can initiate a local shutdown when the configured power situation becomes critical. In a simple deployment, the driver, <code>upsd</code>, and <code>upsmon</code> may all run on one host. In a networked deployment, a primary host talks to the UPS while secondary systems run their own monitoring clients and connect to the primary NUT server.</p>
+        <p>A thoughtful shutdown plan considers more than the low-battery flag:</p>
+        <ul>
+          <li>Which systems should stop first, and which host must remain online longest?</li>
+          <li>How much battery reserve is needed for shutdown to finish safely?</li>
+          <li>Will network equipment remain powered throughout the sequence?</li>
+          <li>What happens if utility power returns after shutdown has started?</li>
+          <li>How will you test the policy without risking production data?</li>
+        </ul>
+        <p>NUT includes tools for advanced scheduling and notification logic, but configuration differs by operating system and package. Follow the documentation shipped with your installed NUT version because distribution packages can lag behind current upstream development. Test deliberately, starting with simulated or non-critical scenarios where possible.</p>
+        <p>An Android UPS monitor does not replace this local shutdown configuration. UPSLink gives a person visibility and alerts; <code>upsmon</code> and related NUT components provide the automated response on protected computers. The two roles complement each other.</p>
+
+        <h2 id="raspberry-pi">Running Raspberry Pi NUT for a homelab</h2>
+        <p>A Raspberry Pi can make a practical NUT server because it uses little power and can stay connected to a UPS by USB while sharing status across the local network. It is especially useful when the main server, NAS, or hypervisor should not own the physical UPS connection.</p>
+        <p>A typical Raspberry Pi NUT layout looks like this:</p>
+        <ol>
+          <li>The UPS connects to the Raspberry Pi by a supported USB or serial connection.</li>
+          <li>A NUT driver on the Pi communicates with the UPS.</li>
+          <li><code>upsd</code> publishes the normalized UPS data on the trusted network.</li>
+          <li>Servers and NAS devices connect as NUT clients for monitoring or graceful shutdown.</li>
+          <li>UPSLink connects from Android for a convenient status view and notifications.</li>
+        </ol>
+        <p>The exact installation commands and service names vary by Raspberry Pi OS and NUT package version. At minimum, a server normally needs device configuration, server listener settings, and appropriate user or access rules. USB permissions must allow the unprivileged NUT driver process to reach the device.</p>
+        <p>Do not expose TCP port 3493 directly to the internet. Restrict access with the host firewall and NUT configuration, keep credentials private, and use a trusted VPN when remote monitoring is required. If the Android device cannot reach the Raspberry Pi NUT server, verify the server bind address, firewall, client network, and allowed access rules before assuming the UPS driver is at fault.</p>
+
+        <h2 id="hardware">APC UPS, CyberPower UPS, and hardware compatibility</h2>
+        <p>NUT supports many models from APC, CyberPower, Eaton, Tripp Lite, Vertiv, and numerous other manufacturers, but a brand name alone is not enough to confirm compatibility. Two devices sold under the same brand may use different protocols, USB identifiers, or firmware behavior.</p>
+        <p>Before buying hardware or changing a working configuration:</p>
+        <ul>
+          <li>Search the official NUT hardware compatibility list for the exact model.</li>
+          <li>Note the reported support level, driver, connection type, and user comments.</li>
+          <li>Check whether your operating system package includes a sufficiently recent driver.</li>
+          <li>Confirm that the values you need—such as UPS runtime or load—are actually reported.</li>
+          <li>Keep a copy of the working configuration before testing another driver.</li>
+        </ul>
+        <p>Many USB UPS devices use the HID power-device standard and work with a common driver, while others need vendor-specific drivers. Network management cards may use SNMP or another network protocol. Let the compatibility list and detected hardware guide the decision rather than selecting a driver from the manufacturer name alone.</p>
+
+        <h2 id="upslink">Monitor your NUT server from Android with UPSLink</h2>
+        <p>Once the NUT server is working, you still need a convenient way to see what it knows. Command-line queries are excellent for setup and troubleshooting, but they are not always where you look during a storm, a brief outage, or an ordinary day away from the rack.</p>
+        <p><a href="../index.html">UPSLink</a> is an Android UPS monitoring app built as a companion for user-configured NUT servers. It connects to the server you specify and presents UPS status, battery percentage, estimated runtime, load, voltage, notifications, diagnostics, and Android widgets in a mobile interface.</p>
+
+        <figure class="article-figure">
+          <img src="../assets/screenshots/dashboard.png" width="1536" height="1024" alt="UPSLink Android dashboard displaying NUT UPS server connections and current power status" loading="lazy">
+          <figcaption>UPSLink provides an Android view of UPS information exposed by your NUT server.</figcaption>
+        </figure>
+
+        <p>That makes UPSLink useful for Synology, Unraid, Proxmox, TrueNAS, Raspberry Pi, and Linux environments that already expose a compatible NUT service. It does not replace NUT, control utility power, or guarantee a graceful shutdown. It makes the NUT monitoring data easier to check from the Android device you already carry.</p>
+        <p>For access away from home, prefer a VPN such as Tailscale or another secure remote-access design. Never publish a NUT server broadly to the internet merely to make a phone app connect. The secure network path is part of the solution.</p>
+
+        <h2 id="plan">A simple NUT monitoring plan</h2>
+        <p>You do not need to perfect every automation on the first day. Build confidence in four deliberate steps.</p>
+
+        <div class="article-plan">
+          <section class="article-step">
+            <h3>Connect and verify the UPS</h3>
+            <p>Confirm the exact model and driver, establish communication, and use a local NUT client to verify that status and useful measurements are updating.</p>
+          </section>
+          <section class="article-step">
+            <h3>Publish data to trusted clients</h3>
+            <p>Configure <code>upsd</code>, access controls, and the firewall so only the systems that need UPS data can reach the NUT server.</p>
+          </section>
+          <section class="article-step">
+            <h3>Configure and test graceful shutdown</h3>
+            <p>Set the policy on each protected host, account for network equipment and shutdown order, then test safely before relying on it during a real outage.</p>
+          </section>
+          <section class="article-step">
+            <h3>Add human-friendly monitoring</h3>
+            <p>Connect UPSLink for an Android UPS monitor, configure useful notifications, and add a widget when at-a-glance status helps your routine.</p>
+          </section>
+        </div>
+
+        <p>After the basic plan works, revisit it when hardware, load, batteries, network topology, or server roles change. A homelab UPS setup is not “done forever.” It is a small operational system that deserves periodic review.</p>
+
+        <h2 id="mistakes">Common NUT UPS monitoring mistakes</h2>
+        <h3>Exposing the NUT server publicly</h3>
+        <p>A NUT server belongs on a trusted network. Use firewall restrictions and a VPN for remote access. Do not treat an open internet port as a shortcut to mobile monitoring.</p>
+
+        <h3>Powering servers but not the network</h3>
+        <p>Secondary clients cannot receive state changes from the primary server if the switch between them loses power. Include critical networking equipment in the UPS load and runtime plan.</p>
+
+        <h3>Treating runtime as a promise</h3>
+        <p>UPS runtime is an estimate, not a service-level guarantee. Battery wear and load changes matter. Preserve a safety margin for the shutdown process.</p>
+
+        <h3>Skipping shutdown tests</h3>
+        <p>A configuration file that looks correct is not proof that applications stop cleanly, the OS powers off, or the sequence survives a changing network state. Test in a controlled way.</p>
+
+        <h3>Assuming every model exposes every value</h3>
+        <p>NUT can only report what the device and driver make available. Missing load, voltage, or runtime fields may reflect hardware or protocol limitations rather than a client problem.</p>
+
+        <h2 id="faq">Network UPS Tools FAQ</h2>
+        <div class="article-faq">
+          <section>
+            <h3>What is Network UPS Tools?</h3>
+            <p>Network UPS Tools is a free, open-source toolkit that provides a common interface for monitoring and managing many UPS systems and other power devices. It separates hardware drivers, the NUT data server, and clients so UPS information can be shared across a network.</p>
+          </section>
+          <section>
+            <h3>Can I run a NUT server on a Raspberry Pi?</h3>
+            <p>Yes. A Raspberry Pi can run the appropriate NUT driver and <code>upsd</code> for a compatible USB, serial, or network UPS. It can then serve status to authorized computers, NAS devices, and monitoring clients.</p>
+          </section>
+          <section>
+            <h3>Does NUT work with APC UPS and CyberPower UPS models?</h3>
+            <p>NUT supports many APC and CyberPower devices, but compatibility is model-specific. Check the official hardware compatibility list for the exact model, driver, connection type, and reported support level.</p>
+          </section>
+          <section>
+            <h3>What port does a NUT server use?</h3>
+            <p>The <code>upsd</code> data server listens on TCP port <code>3493</code> by default. Restrict that port to trusted clients and use a secure VPN for remote access instead of exposing it directly to the internet.</p>
+          </section>
+          <section>
+            <h3>Can UPSLink shut down my servers?</h3>
+            <p>UPSLink is an Android monitoring companion. Configure graceful shutdown on the protected systems using NUT components such as <code>upsmon</code> and, where needed, <code>upssched</code>. UPSLink helps a person see status and receive alerts.</p>
+          </section>
+          <section>
+            <h3>How do I monitor a NUT UPS from Android?</h3>
+            <p>First configure and secure a reachable NUT server. Then add its address and port to an Android NUT monitoring app such as UPSLink. Follow the <a href="../getting-started.html">UPSLink getting-started guide</a> for the app workflow.</p>
+          </section>
+          <section>
+            <h3>Why is my NUT UPS runtime missing or inaccurate?</h3>
+            <p>Not every UPS reports runtime, and estimates depend on device firmware, battery condition, calibration, and load. Verify the raw value with a standard NUT client and consult the hardware compatibility notes for your model.</p>
+          </section>
+          <section>
+            <h3>Can I monitor a Synology NAS UPS server?</h3>
+            <p>Synology DSM can expose its connected UPS through its Network UPS Server feature. The client device must be permitted in DSM and able to reach the NAS. See the <a href="../faq.html">UPSLink FAQ</a> for the Synology connection checklist.</p>
+          </section>
+        </div>
+
+        <h2 id="conclusion">Build visibility before the next outage</h2>
+        <p>Your UPS already provides a window of time. Network UPS Tools turns that window into shared, actionable information. It gives different power devices a common language, lets multiple systems observe one UPS, and supports local graceful shutdown decisions when the power situation becomes critical.</p>
+        <p>The successful outcome is not a dashboard for its own sake. It is knowing that your battery is healthy enough, your load is understood, your runtime assumptions are realistic, and your protected systems have a tested path to shut down cleanly. It is fewer surprises when utility power fails and less time wondering whether the UPS is doing what you expect.</p>
+        <p>Start with the official NUT documentation, confirm your hardware, and build the driver-server-client chain carefully. Then make the resulting data convenient enough that you will actually look at it.</p>
+
+        <div class="cta-panel">
+          <div>
+            <span class="eyebrow">Android companion for NUT</span>
+            <h2>Keep your NUT server status within reach.</h2>
+            <p>Once your NUT server is configured, UPSLink can bring its UPS status, battery, runtime, alerts, and widgets to Android.</p>
+          </div>
+          <a class="button" href="https://play.google.com/store/apps/details?id=com.reelmemories.upslink" target="_blank" rel="noopener">Get UPSLink on Google Play</a>
+        </div>
+
+        <h2 id="sources">Authoritative NUT resources</h2>
+        <ul class="article-sources">
+          <li><a href="https://networkupstools.org/" target="_blank" rel="noopener">Network UPS Tools official website and documentation</a></li>
+          <li><a href="https://github.com/networkupstools/nut" target="_blank" rel="noopener">Network UPS Tools source repository on GitHub</a></li>
+        </ul>
+      </article>
+
+      <aside class="article-aside" aria-label="Article contents">
+        <strong>In this guide</strong>
+        <a href="#what-is-nut">What is NUT?</a>
+        <a href="#architecture">NUT architecture</a>
+        <a href="#monitoring-data">Monitoring data</a>
+        <a href="#graceful-shutdown">Graceful shutdown</a>
+        <a href="#raspberry-pi">Raspberry Pi NUT</a>
+        <a href="#hardware">UPS compatibility</a>
+        <a href="#upslink">Android monitoring</a>
+        <a href="#plan">Four-step plan</a>
+        <a href="#faq">FAQ</a>
+        <a href="#sources">Sources</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-copy">
+        <a class="brand" href="../index.html"><img src="../assets/screenshots/upslink-icon.png" alt="" width="1024" height="1024"><span><span class="brand-green">UPS</span>Link</span></a>
+        <p>Simple Android monitoring for NUT-compatible UPS devices across your homelab and small IT environment.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="../index.html">Home</a><a href="../getting-started.html">Getting Started</a><a href="../faq.html">FAQ</a><a href="../privacy-policy.html">Privacy Policy</a><a href="network-ups-tools-guide.html" aria-current="page">NUT Guide</a><a href="https://play.google.com/store/apps/details?id=com.reelmemories.upslink" target="_blank" rel="noopener">Google Play</a>
+      </nav>
+    </div>
+    <div class="footer-meta">UPSLink © 2026</div>
+  </footer>
+</body>
+</html>
