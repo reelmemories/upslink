@@ -908,6 +908,11 @@ code {
   box-shadow: var(--shadow-sm);
 }
 
+.guide-list {
+  display: grid;
+  gap: 1.25rem;
+}
+
 .guide-card h3 {
   margin: 0.65rem 0 0.8rem;
   font-size: clamp(1.55rem, 3vw, 2.2rem);
@@ -1150,6 +1155,34 @@ code {
   text-align: center;
 }
 
+.tutorial-step {
+  display: grid;
+  margin: 2.5rem 0 4rem;
+  grid-template-columns: minmax(0, 1fr) minmax(250px, 340px);
+  align-items: start;
+  gap: clamp(1.5rem, 5vw, 3.5rem);
+}
+
+.tutorial-step__copy h2 {
+  margin-top: 0;
+}
+
+.tutorial-step__copy > :last-child {
+  margin-bottom: 0;
+}
+
+.tutorial-step .article-figure {
+  width: 100%;
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+.tutorial-step .article-figure img {
+  display: block;
+  aspect-ratio: 1080 / 2340;
+  object-fit: contain;
+}
+
 .article-faq {
   display: grid;
   gap: 1rem;
@@ -1280,6 +1313,10 @@ code {
     grid-template-columns: minmax(0, 760px);
   }
 
+  .tutorial-step {
+    grid-template-columns: minmax(0, 1fr) minmax(230px, 300px);
+  }
+
   .article-aside {
     display: none;
   }
@@ -1345,8 +1382,17 @@ code {
   }
 
   .guide-card,
-  .architecture-grid {
+  .architecture-grid,
+  .tutorial-step {
     grid-template-columns: 1fr;
+  }
+
+  .tutorial-step {
+    margin-bottom: 3.5rem;
+  }
+
+  .tutorial-step .article-figure {
+    max-width: 310px;
   }
 
   .guide-card .button {

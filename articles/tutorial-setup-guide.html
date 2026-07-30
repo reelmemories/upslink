@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Add Your First UPS in UPSLink</title>
+  <meta name="description" content="Set up UPSLink on Android with NUT server auto-discovery, authentication, UPS selection, battery monitoring, runtime data, and power outage alerts.">
+  <link rel="canonical" href="https://reelmemories.github.io/upslink/articles/tutorial-setup-guide.html">
+  <link rel="icon" type="image/png" href="../assets/screenshots/upslink-icon.png?v=2">
+  <link rel="apple-touch-icon" href="../assets/screenshots/upslink-icon.png?v=2">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <meta name="theme-color" content="#080b0d">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How to Add Your First UPS in UPSLink">
+  <meta property="og:description" content="A ten-step Android NUT UPS setup tutorial covering discovery, authentication, UPS selection, alerts, and final connection checks.">
+  <meta property="og:url" content="https://reelmemories.github.io/upslink/articles/tutorial-setup-guide.html">
+  <meta property="og:image" content="https://reelmemories.github.io/upslink/assets/screenshots/Tutorial/10-Finished.jpg">
+  <meta property="og:image:alt" content="UPSLink Android dashboard showing a connected NUT UPS">
+  <meta property="og:site_name" content="UPSLink">
+  <meta property="article:published_time" content="2026-07-30">
+  <meta property="article:modified_time" content="2026-07-30">
+  <meta property="article:section" content="UPSLink Tutorials">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Add Your First UPS in UPSLink">
+  <meta name="twitter:description" content="Connect UPSLink to a NUT server on Android in ten illustrated steps.">
+  <meta name="twitter:image" content="https://reelmemories.github.io/upslink/assets/screenshots/Tutorial/10-Finished.jpg">
+  <meta name="twitter:image:alt" content="UPSLink Android dashboard showing a connected NUT UPS">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Add Your First UPS in UPSLink",
+    "description": "Set up the UPSLink Android app with a reachable Network UPS Tools or upsd-compatible server.",
+    "datePublished": "2026-07-30",
+    "dateModified": "2026-07-30",
+    "mainEntityOfPage": "https://reelmemories.github.io/upslink/articles/tutorial-setup-guide.html",
+    "image": "https://reelmemories.github.io/upslink/assets/screenshots/Tutorial/10-Finished.jpg",
+    "totalTime": "PT10M",
+    "tool": [
+      {"@type": "HowToTool", "name": "Android phone with UPSLink installed"},
+      {"@type": "HowToTool", "name": "Reachable NUT or upsd-compatible server"}
+    ],
+    "step": [
+      {"@type": "HowToStep", "position": 1, "name": "Open the UPSLink dashboard", "url": "https://reelmemories.github.io/upslink/articles/tutorial-setup-guide.html#step-1"},
+      {"@type": "HowToStep", "position": 2, "name": "Tap Add UPS", "url": "https://reelmemories.github.io/upslink/articles/tutorial-setup-guide.html#step-2"},
+      {"@type": "HowToStep", "position": 3, "name": "Scan the network or add the server manually", "url": "https://reelmemories.github.io/upslink/articles/tutorial-setup-guide.html#step-3"},
+      {"@type": "HowToStep", "position": 4, "name": "Select the discovered NUT server", "url": "https://reelmemories.github.io/upslink/articles/tutorial-setup-guide.html#step-4"},
+      {"@type": "HowToStep", "position": 5, "name": "Authenticate with NUT credentials", "url": "https://reelmemories.github.io/upslink/articles/tutorial-setup-guide.html#step-5"},
+      {"@type": "HowToStep", "position": 6, "name": "Select and name the UPS", "url": "https://reelmemories.github.io/upslink/articles/tutorial-setup-guide.html#step-6"},
+      {"@type": "HowToStep", "position": 7, "name": "Save the UPS connection", "url": "https://reelmemories.github.io/upslink/articles/tutorial-setup-guide.html#step-7"},
+      {"@type": "HowToStep", "position": 8, "name": "Enable background alerts", "url": "https://reelmemories.github.io/upslink/articles/tutorial-setup-guide.html#step-8"},
+      {"@type": "HowToStep", "position": 9, "name": "Allow Android notifications", "url": "https://reelmemories.github.io/upslink/articles/tutorial-setup-guide.html#step-9"},
+      {"@type": "HowToStep", "position": 10, "name": "Confirm the UPS is online", "url": "https://reelmemories.github.io/upslink/articles/tutorial-setup-guide.html#step-10"}
+    ],
+    "publisher": {
+      "@type": "Organization",
+      "name": "UPSLink",
+      "logo": {"@type": "ImageObject", "url": "https://reelmemories.github.io/upslink/assets/screenshots/upslink-icon.png"}
+    }
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="brand" href="../index.html" aria-label="UPSLink home">
+        <img src="../assets/screenshots/upslink-icon.png" alt="" width="1024" height="1024">
+        <span><span class="brand-green">UPS</span>Link</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="../index.html">Home</a>
+        <a href="../getting-started.html">Getting Started</a>
+        <a href="../faq.html">FAQ</a>
+        <a href="../privacy-policy.html">Privacy</a>
+        <a class="nav-cta" href="https://play.google.com/store/apps/details?id=com.reelmemories.upslink" target="_blank" rel="noopener">Google Play</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <header class="article-hero">
+      <div class="container article-hero__inner">
+        <span class="eyebrow">UPSLink setup guide</span>
+        <h1>How to Add Your First UPS in UPSLink</h1>
+        <p class="article-hero__dek">Step-by-step Android NUT UPS setup using network auto-discovery, secure authentication, UPS selection, and power outage alerts.</p>
+        <div class="article-meta">
+          <span>Published <time datetime="2026-07-30">July 30, 2026</time></span>
+          <span>Last updated <time datetime="2026-07-30">July 30, 2026</time></span>
+          <span>10-minute setup</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="container article-layout">
+      <article class="article-body">
+        <div class="article-summary">
+          <strong>Before you begin</strong>
+          <p>UPSLink is an Android UPS monitoring app that connects to an existing Network UPS Tools (NUT) or <code>upsd</code>-compatible server. It does not configure the physical UPS or create the NUT server. Have the server address, NUT port (usually <code>3493</code>), and any required read-only credentials ready.</p>
+        </div>
+
+        <h2 id="what-you-need">What you need before starting</h2>
+        <p>Your Android phone and NUT server should be reachable on the same trusted network for initial setup. The server might be running on a Synology NAS, Unraid, TrueNAS, Proxmox host, Raspberry Pi NUT server, Linux system, or another platform that exposes a compatible NUT service.</p>
+        <ul>
+          <li>UPSLink installed on a supported Android device.</li>
+          <li>A working NUT or <code>upsd</code>-compatible server with its UPS visible.</li>
+          <li>The server IP address or hostname and configured NUT port.</li>
+          <li>NUT username and password if the server requires authentication.</li>
+          <li>Permission for your phone to reach the server. On Synology, this may require adding the phone's IP address to the permitted-device list.</li>
+        </ul>
+        <p>If you are still preparing the server, read the <a href="network-ups-tools-guide.html">Network UPS Tools homelab guide</a> and the existing <a href="../getting-started.html">UPSLink getting-started page</a> first.</p>
+
+        <section class="tutorial-step" id="step-1">
+          <div class="tutorial-step__copy">
+            <span class="eyebrow">Step 1</span>
+            <h2>Open the UPSLink dashboard</h2>
+            <p>Launch UPSLink. A new installation opens to an empty dashboard that shows no configured UPS connections. This is the starting point for adding your first NUT UPS monitor.</p>
+            <p>UPSLink reads status from your NUT server; it does not directly pair with or reconfigure an APC UPS, CyberPower UPS, Eaton UPS, or other physical unit.</p>
+          </div>
+          <figure class="article-figure">
+            <img src="../assets/screenshots/Tutorial/1-Dashboard.jpg" alt="Empty UPSLink Android dashboard before a UPS has been configured" width="1080" height="2340" loading="lazy" decoding="async">
+            <figcaption>The empty dashboard confirms that no UPS connection has been added yet.</figcaption>
+          </figure>
+        </section>
+
+        <section class="tutorial-step" id="step-2">
+          <div class="tutorial-step__copy">
+            <span class="eyebrow">Step 2</span>
+            <h2>Tap Add UPS</h2>
+            <p>Select <strong>Add UPS</strong> to open the connection wizard. The wizard collects the server, authentication, UPS selection, and display settings in a controlled sequence.</p>
+            <p>You can repeat this workflow later for additional NUT servers or UPS devices in a homelab, small business, IT shop, server rack, or NAS environment.</p>
+          </div>
+          <figure class="article-figure">
+            <img src="../assets/screenshots/Tutorial/2-Add UPS.jpg" alt="UPSLink dashboard with the Add UPS button highlighted" width="1080" height="2340" loading="lazy" decoding="async">
+            <figcaption>Tap Add UPS to begin the guided connection process.</figcaption>
+          </figure>
+        </section>
+
+        <section class="tutorial-step" id="step-3">
+          <div class="tutorial-step__copy">
+            <span class="eyebrow">Step 3</span>
+            <h2>Scan your network or add the server manually</h2>
+            <p>Choose auto-discovery to scan the local network for a NUT server, or switch to manual entry when you already know the hostname or IP address. NUT server auto discovery is convenient on a normal home LAN, while manual entry is useful across segmented networks or a private VPN.</p>
+            <p>Confirm the port before continuing. Standard <code>upsd</code> installations usually listen on TCP port <code>3493</code>, but your administrator may have chosen a different port.</p>
+          </div>
+          <figure class="article-figure">
+            <img src="../assets/screenshots/Tutorial/3-Auto Dsicover UPS or Add Manually.jpg" alt="UPSLink server setup screen offering automatic NUT discovery or manual server entry" width="1080" height="2340" loading="lazy" decoding="async">
+            <figcaption>Scan the trusted local subnet, or enter the NUT server and port manually.</figcaption>
+          </figure>
+        </section>
+
+        <section class="tutorial-step" id="step-4">
+          <div class="tutorial-step__copy">
+            <span class="eyebrow">Step 4</span>
+            <h2>Select the discovered NUT server</h2>
+            <p>When discovery finds a server, select the result and choose to use it. Check that the displayed address belongs to the system you expect before moving forward.</p>
+            <p>If several servers appear, use the IP address and server details to identify the correct Synology, Unraid, TrueNAS, Proxmox, Raspberry Pi, Home Assistant, or Linux NUT host.</p>
+          </div>
+          <figure class="article-figure">
+            <img src="../assets/screenshots/Tutorial/4-Select and Use Detected UPS.jpg" alt="UPSLink showing a detected Network UPS Tools server ready for selection" width="1080" height="2340" loading="lazy" decoding="async">
+            <figcaption>Select the expected discovered server rather than an unknown network device.</figcaption>
+          </figure>
+        </section>
+
+        <section class="tutorial-step" id="step-5">
+          <div class="tutorial-step__copy">
+            <span class="eyebrow">Step 5</span>
+            <h2>Authenticate with NUT credentials</h2>
+            <p>Enter the NUT username and password configured by the server administrator, then continue. A dedicated account with only the permissions needed for monitoring is preferable to reusing an administrative credential.</p>
+            <p>Some servers allow anonymous status queries. If yours requires credentials, the values must match its NUT user configuration exactly.</p>
+          </div>
+          <figure class="article-figure">
+            <img src="../assets/screenshots/Tutorial/5-Authenticate with Credentials.jpg" alt="UPSLink NUT authentication screen with username and password fields" width="1080" height="2340" loading="lazy" decoding="async">
+            <figcaption>Supply the credentials required by the selected NUT server.</figcaption>
+          </figure>
+        </section>
+
+        <section class="tutorial-step" id="step-6">
+          <div class="tutorial-step__copy">
+            <span class="eyebrow">Step 6</span>
+            <h2>Select and name the UPS</h2>
+            <p>Choose the UPS name exposed by the server, then give the connection a clear display name. Names such as “Rack UPS,” “NAS Backup,” or “Office APC Back-UPS” make multiple devices easier to distinguish.</p>
+            <p>The available battery charge, load, status, and UPS runtime monitoring values depend on what the UPS hardware, firmware, NUT driver, and server expose.</p>
+          </div>
+          <figure class="article-figure">
+            <img src="../assets/screenshots/Tutorial/6-Select and Name the UPS.jpg" alt="UPSLink screen for selecting a server UPS and assigning it a friendly name" width="1080" height="2340" loading="lazy" decoding="async">
+            <figcaption>Select the server-provided UPS and add a recognizable display name.</figcaption>
+          </figure>
+        </section>
+
+        <section class="tutorial-step" id="step-7">
+          <div class="tutorial-step__copy">
+            <span class="eyebrow">Step 7</span>
+            <h2>Save the UPS connection</h2>
+            <p>Review the server, port, selected UPS, and friendly name. Save the connection when those details are correct. UPSLink will then use this configuration to request the current status from the NUT server.</p>
+            <p>Saving an app connection does not change the NUT server or physical UPS configuration.</p>
+          </div>
+          <figure class="article-figure">
+            <img src="../assets/screenshots/Tutorial/7-Final Step Save Connection.jpg" alt="Final UPSLink connection review screen with the save action" width="1080" height="2340" loading="lazy" decoding="async">
+            <figcaption>Review the connection details, then save the new UPS entry.</figcaption>
+          </figure>
+        </section>
+
+        <section class="tutorial-step" id="step-8">
+          <div class="tutorial-step__copy">
+            <span class="eyebrow">Step 8</span>
+            <h2>Enable background alerts</h2>
+            <p>Enable alerting if you want UPSLink to notify you about supported power events while the app is not open. This can provide useful power outage alerts and battery visibility for an attended Android device.</p>
+            <p>Alerts complement your infrastructure plan; they do not replace NUT-based graceful shutdown automation on protected systems.</p>
+          </div>
+          <figure class="article-figure">
+            <img src="../assets/screenshots/Tutorial/8-Enable Alerting.jpg" alt="UPSLink prompt to enable background monitoring and UPS alerts" width="1080" height="2340" loading="lazy" decoding="async">
+            <figcaption>Enable background alerting to receive supported UPS status notifications.</figcaption>
+          </figure>
+        </section>
+
+        <section class="tutorial-step" id="step-9">
+          <div class="tutorial-step__copy">
+            <span class="eyebrow">Step 9</span>
+            <h2>Allow Android notification permissions</h2>
+            <p>When Android asks whether UPSLink may send notifications, choose <strong>Allow</strong> if you enabled alerts. Without this operating-system permission, Android can prevent the app from presenting notifications.</p>
+            <p>You can review notification access later in Android Settings if you dismiss or change this choice.</p>
+          </div>
+          <figure class="article-figure">
+            <img src="../assets/screenshots/Tutorial/9-Accept Notifications Permissions.jpg" alt="Android notification permission dialog for the UPSLink app" width="1080" height="2340" loading="lazy" decoding="async">
+            <figcaption>Allow notifications so enabled UPSLink alerts can appear on the device.</figcaption>
+          </figure>
+        </section>
+
+        <section class="tutorial-step" id="step-10">
+          <div class="tutorial-step__copy">
+            <span class="eyebrow">Step 10</span>
+            <h2>Confirm the UPS is online</h2>
+            <p>Return to the dashboard and confirm that the new card reports an online connection and current data. Open the UPS for more detail and verify that the values are plausible for the present load and power state.</p>
+            <p>Your Android phone is now acting as a Network UPS Tools Android client. It is monitoring the server data; it is not directly controlling the UPS.</p>
+          </div>
+          <figure class="article-figure">
+            <img src="../assets/screenshots/Tutorial/10-Finished.jpg" alt="Completed UPSLink dashboard showing an online NUT UPS connection and current status" width="1080" height="2340" loading="lazy" decoding="async">
+            <figcaption>An online dashboard card confirms that the first UPS connection is working.</figcaption>
+          </figure>
+        </section>
+
+        <h2 id="troubleshooting">Troubleshooting common connection problems</h2>
+        <div class="article-faq">
+          <section>
+            <h3>The server is not discovered</h3>
+            <p>Confirm the phone is on the same trusted LAN, turn off guest-network isolation, and verify that <code>upsd</code> is listening on a network interface the phone can reach. Auto-discovery may not cross VLANs, routers, or VPN boundaries; use manual entry when routing and access controls already permit the connection.</p>
+          </section>
+          <section>
+            <h3>The NUT port is incorrect or unreachable</h3>
+            <p>Check the server configuration and firewall. Port <code>3493</code> is the default, not a guarantee. Do not expose the NUT port directly to the public internet. For remote monitoring, use a secure VPN that you configure and control.</p>
+          </section>
+          <section>
+            <h3>The credentials are rejected</h3>
+            <p>Verify capitalization and the NUT username/password on the server. Confirm that its access-control rules allow queries from your phone's address. A login for the NAS or Linux operating system is not necessarily the same as a NUT account.</p>
+          </section>
+          <section>
+            <h3>A Synology NUT server will not connect</h3>
+            <p>In Synology DSM, enable Network UPS Server and add the Android device's current LAN IP address to the permitted-device list where required. DHCP address changes can invalidate that permission, so a stable reservation may help.</p>
+          </section>
+          <section>
+            <h3>Battery or runtime data is missing</h3>
+            <p>UPSLink can display only the variables supplied by the NUT server. Exact metrics vary by model and driver across APC, CyberPower, Eaton, Tripp Lite, Vertiv/Liebert, and PowerWalker UPS hardware. Check the raw NUT output and hardware compatibility before treating a missing field as an app fault.</p>
+          </section>
+        </div>
+
+        <h2 id="compatible-environments">Compatible environments and common uses</h2>
+        <p>This workflow can support Synology UPS monitoring, Unraid UPS monitoring, TrueNAS UPS monitoring, Proxmox UPS monitoring, Home Assistant UPS monitoring, and Linux UPS monitoring whenever a reachable NUT or <code>upsd</code>-compatible service is correctly configured.</p>
+        <p>Common uses include homelab UPS monitoring, NAS UPS monitoring, small business UPS monitoring, IT shop power monitoring, and server rack UPS monitoring. The protected load might include a network switch, storage system, workstation, or Dell PowerEdge server, while the UPS itself may come from a compatible power-hardware vendor.</p>
+
+        <div class="article-note">
+          <strong>Keep monitoring and automation in their proper roles.</strong>
+          <p>UPSLink gives a person convenient Android visibility and supported alerts. Configure and test graceful shutdown behavior separately on the systems being protected. A notification is useful context, but it is not a substitute for an automatic shutdown policy during a long outage.</p>
+        </div>
+
+        <h2 id="complete">Your first UPSLink connection is complete</h2>
+        <p>You have identified a NUT server, selected its UPS, saved the connection, enabled alerts, and confirmed live status on Android. Use the dashboard regularly to watch battery condition, load, status, and runtime values that your server makes available.</p>
+        <p>For connection questions, visit the <a href="../faq.html">UPSLink FAQ</a>. For a deeper explanation of NUT architecture and safe shutdown planning, continue with the <a href="network-ups-tools-guide.html">complete Network UPS Tools guide</a>.</p>
+
+        <div class="cta-panel">
+          <div>
+            <span class="eyebrow">Monitor from Android</span>
+            <h2>Keep your UPS status within reach.</h2>
+            <p>Explore UPSLink features, screenshots, and download options from the main product page.</p>
+          </div>
+          <a class="button" href="https://reelmemories.github.io/upslink/">Visit the UPSLink homepage</a>
+        </div>
+      </article>
+
+      <aside class="article-aside" aria-label="Tutorial contents">
+        <strong>In this tutorial</strong>
+        <a href="#what-you-need">Before starting</a>
+        <a href="#step-1">Open the dashboard</a>
+        <a href="#step-2">Add a UPS</a>
+        <a href="#step-3">Find the server</a>
+        <a href="#step-4">Select the server</a>
+        <a href="#step-5">Authenticate</a>
+        <a href="#step-6">Select the UPS</a>
+        <a href="#step-7">Save the connection</a>
+        <a href="#step-8">Enable alerts</a>
+        <a href="#step-9">Allow notifications</a>
+        <a href="#step-10">Confirm status</a>
+        <a href="#troubleshooting">Troubleshooting</a>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-copy">
+        <a class="brand" href="../index.html"><img src="../assets/screenshots/upslink-icon.png" alt="" width="1024" height="1024"><span><span class="brand-green">UPS</span>Link</span></a>
+        <p>Simple Android monitoring for NUT-compatible UPS devices across your homelab and small IT environment.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="../index.html">Home</a><a href="../getting-started.html">Getting Started</a><a href="../faq.html">FAQ</a><a href="../privacy-policy.html">Privacy Policy</a><a href="tutorial-setup-guide.html" aria-current="page">Setup Tutorial</a><a href="network-ups-tools-guide.html">NUT Guide</a><a href="https://play.google.com/store/apps/details?id=com.reelmemories.upslink" target="_blank" rel="noopener">Google Play</a>
+      </nav>
+    </div>
+    <div class="footer-meta">UPSLink &copy; 2026</div>
+  </footer>
+</body>
+</html>
