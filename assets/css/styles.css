@@ -931,6 +931,12 @@ code {
 }
 
 .app-card {
+  --app-primary: var(--color-accent);
+  --app-secondary: var(--color-accent-dark);
+  --app-border: rgba(142, 234, 54, 0.25);
+  --app-border-hover: rgba(142, 234, 54, 0.42);
+  --app-glow: rgba(142, 234, 54, 0.12);
+  --app-mark-bg: var(--color-accent-soft);
   display: grid;
   min-width: 0;
   padding: clamp(1.4rem, 3vw, 2rem);
@@ -940,7 +946,7 @@ code {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   background:
-    linear-gradient(135deg, rgba(142, 234, 54, 0.07), transparent 52%),
+    radial-gradient(circle at 0 0, var(--app-glow), transparent 16rem),
     var(--color-surface);
   box-shadow: var(--shadow-sm);
   color: inherit;
@@ -949,13 +955,13 @@ code {
 }
 
 .app-card:hover {
-  border-color: rgba(142, 234, 54, 0.36);
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.24);
+  border-color: var(--app-border-hover);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.24), 0 12px 36px var(--app-glow);
   transform: translateY(-3px);
 }
 
 .app-card:focus-visible {
-  outline: 3px solid var(--color-accent);
+  outline: 3px solid var(--app-primary);
   outline-offset: 3px;
 }
 
@@ -964,10 +970,10 @@ code {
   width: 3rem;
   height: 3rem;
   place-items: center;
-  border: 1px solid rgba(142, 234, 54, 0.25);
+  border: 1px solid var(--app-border);
   border-radius: var(--radius-md);
-  background: var(--color-accent-soft);
-  color: var(--color-accent);
+  background: var(--app-mark-bg);
+  color: var(--app-primary);
   font-size: 0.8rem;
   font-weight: 850;
   letter-spacing: 0.06em;
@@ -994,7 +1000,7 @@ code {
   grid-column: 2;
   align-items: center;
   gap: 0.4rem;
-  color: var(--color-accent);
+  color: var(--app-primary);
   font-size: 0.86rem;
   font-weight: 800;
 }
@@ -1005,6 +1011,32 @@ code {
 
 .app-card:hover .app-card__cta span {
   transform: translateX(3px);
+}
+
+.app-card--uptilink {
+  --app-primary: #63d3ff;
+  --app-secondary: #32e0c4;
+  --app-border: rgba(83, 196, 255, 0.3);
+  --app-border-hover: rgba(99, 211, 255, 0.58);
+  --app-glow: rgba(55, 191, 255, 0.13);
+  --app-mark-bg: linear-gradient(135deg, rgba(55, 191, 255, 0.15), rgba(50, 224, 196, 0.11));
+}
+
+.app-card--certstat {
+  --app-primary: #5bbdff;
+  --app-secondary: #22d89a;
+  --app-border: rgba(49, 150, 222, 0.34);
+  --app-border-hover: rgba(34, 216, 154, 0.5);
+  --app-glow: rgba(29, 145, 255, 0.13);
+  --app-mark-bg: linear-gradient(135deg, rgba(29, 145, 255, 0.16), rgba(34, 216, 154, 0.1));
+}
+
+.app-card--uptilink .app-card__cta,
+.app-card--certstat .app-card__cta {
+  background-image: linear-gradient(120deg, var(--app-primary), var(--app-secondary));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
 .article-hero {
