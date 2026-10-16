@@ -1584,3 +1584,38 @@ code {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Remote UPS article: a wrapping data flow and keyboard-scrollable table. */
+.remote-ups-flow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+  gap: 1rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+.remote-ups-flow li {
+  margin: 0;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+}
+.remote-ups-flow strong,
+.remote-ups-flow span { display: block; }
+.remote-ups-flow strong { color: var(--color-accent); }
+.remote-ups-flow li:not(:last-child)::after { content: '\2193'; color: var(--color-accent); }
+.remote-ups-table {
+  max-width: 100%;
+  overflow-x: auto;
+  margin-block: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+.remote-ups-table:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 4px; }
+.remote-ups-table table { width: 100%; min-width: 640px; border-collapse: collapse; text-align: left; }
+.remote-ups-table caption { padding: 1rem; color: var(--color-muted); text-align: left; }
+.remote-ups-table th,
+.remote-ups-table td { padding: 1rem; border-top: 1px solid var(--color-border); vertical-align: top; }
+.remote-ups-table thead { background: var(--color-surface); color: var(--color-accent); }
+.remote-ups-table td { color: var(--color-muted); }

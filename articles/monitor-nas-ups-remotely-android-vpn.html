@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monitor Your NAS UPS Remotely from Android | Tailscale, WireGuard &amp; NUT</title>
+  <meta name="description" content="Learn how to monitor a Synology, Unraid, or TrueNAS UPS remotely from Android using Tailscale or WireGuard, NUT, and UPSLink.">
+  <link rel="canonical" href="https://reelmemories.github.io/upslink/articles/monitor-nas-ups-remotely-android-vpn.html">
+  <link rel="icon" type="image/png" href="../assets/screenshots/upslink-icon.png?v=2">
+  <link rel="apple-touch-icon" href="../assets/screenshots/upslink-icon.png?v=2">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <meta name="theme-color" content="#080b0d">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="How to Monitor Your NAS UPS Remotely from Android Using Tailscale or WireGuard">
+  <meta property="og:description" content="Learn how to monitor a Synology, Unraid, or TrueNAS UPS remotely from Android using Tailscale or WireGuard, NUT, and UPSLink.">
+  <meta property="og:url" content="https://reelmemories.github.io/upslink/articles/monitor-nas-ups-remotely-android-vpn.html">
+  <meta property="og:site_name" content="UPSLink">
+  <meta property="og:image" content="https://reelmemories.github.io/upslink/assets/screenshots/Tutorial/10-Finished.jpg">
+  <meta property="og:image:alt" content="UPSLink Android dashboard showing a connected NUT UPS">
+  <meta property="article:section" content="UPSLink Tutorials">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How to Monitor Your NAS UPS Remotely from Android Using Tailscale or WireGuard">
+  <meta name="twitter:description" content="Learn how to monitor a Synology, Unraid, or TrueNAS UPS remotely from Android using Tailscale or WireGuard, NUT, and UPSLink.">
+  <meta name="twitter:image" content="https://reelmemories.github.io/upslink/assets/screenshots/Tutorial/10-Finished.jpg">
+  <meta name="twitter:image:alt" content="UPSLink Android dashboard showing a connected NUT UPS">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Monitor Your NAS UPS Remotely from Android Using Tailscale or WireGuard",
+    "description": "Learn how to monitor a Synology, Unraid, or TrueNAS UPS remotely from Android using Tailscale or WireGuard, NUT, and UPSLink.",
+    "mainEntityOfPage": "https://reelmemories.github.io/upslink/articles/monitor-nas-ups-remotely-android-vpn.html",
+    "url": "https://reelmemories.github.io/upslink/articles/monitor-nas-ups-remotely-android-vpn.html",
+    "inLanguage": "en",
+    "image": "https://reelmemories.github.io/upslink/assets/screenshots/Tutorial/10-Finished.jpg",
+    "publisher": {
+      "@type": "Organization",
+      "name": "UPSLink",
+      "logo": {"@type": "ImageObject", "url": "https://reelmemories.github.io/upslink/assets/screenshots/upslink-icon.png"}
+    }
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="brand" href="../index.html" aria-label="UPSLink home">
+        <img src="../assets/screenshots/upslink-icon.png" alt="" width="1024" height="1024">
+        <span><span class="brand-green">UPS</span>Link</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a href="../index.html">Home</a>
+        <a href="../getting-started.html">Getting Started</a>
+        <a href="../faq.html">FAQ</a>
+        <a href="../privacy-policy.html">Privacy</a>
+        <a class="nav-cta" href="https://play.google.com/store/apps/details?id=com.reelmemories.upslink" target="_blank" rel="noopener">Google Play</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main-content">
+    <header class="article-hero">
+      <div class="container article-hero__inner">
+        <span class="eyebrow">Remote NAS UPS monitoring</span>
+        <h1>How to Monitor Your NAS UPS Remotely from Android Using Tailscale or WireGuard</h1>
+        <p class="article-hero__dek">Check home UPS power status, battery, runtime, and load from Android through a private VPN connection to your NUT server.</p>
+      </div>
+    </header>
+    <div class="container article-layout">
+      <article class="article-body">
+        <p>Your UPS is connected to the NAS at home, but you are travelling when a storm arrives. From your Android phone, you want to know whether utility power is available, how much battery remains, and how long the UPS might support the current load.</p>
+        <p><a href="../index.html">UPSLink</a> reads this information from Network UPS Tools (NUT). It monitors the UPS, not NAS CPU usage, storage, disk health, or general NAS performance. A VPN such as Tailscale or WireGuard supplies the private network path while you are away.</p>
+        <div class="article-summary">
+          <strong>The safe connection pattern</strong>
+          <p>Make an existing NUT endpoint reachable through your VPN, then enter that endpoint in UPSLink. Do not expose NUT TCP port 3493 directly to the public internet.</p>
+        </div>
+
+        <h2 id="architecture">How remote UPS monitoring works</h2>
+        <figure class="article-note">
+          <ol class="remote-ups-flow" aria-label="UPS monitoring data path">
+            <li><strong>UPS</strong><span>USB or supported network connection</span></li>
+            <li><strong>NAS or homelab host</strong><span>NUT driver and upsd data server</span></li>
+            <li><strong>Private connectivity</strong><span>LAN plus Tailscale or WireGuard VPN</span></li>
+            <li><strong>Android phone</strong><span>UPSLink reads the NUT endpoint</span></li>
+          </ol>
+          <figcaption>Data travels from the UPS through NUT to your phone. The phone queries the server over the private network path.</figcaption>
+        </figure>
+        <p>The NAS must run a compatible, accessible NUT service. NUT's <code>upsd</code> commonly listens on TCP <code>3493</code>, although administrators can change the port. Reaching a NAS administration website proves only that its web service is accessible; it does not prove that NUT is listening or permitted.</p>
+        <p>Some NAS systems monitor a UPS locally without exposing NUT to other clients. Others act only as clients of a separate NUT host. Identify the actual data server first. The <a href="network-ups-tools-guide.html">NUT homelab guide</a> explains the driver, server, and client roles.</p>
+
+        <h2 id="prerequisites">Before you start</h2>
+        <ul>
+          <li>A NAS or homelab host already monitoring a compatible UPS through NUT.</li>
+          <li>An operational NUT server with a known UPS name, address, and port.</li>
+          <li>An Android phone with UPSLink installed.</li>
+          <li>A working Tailscale or WireGuard VPN with a route to that server.</li>
+          <li>NAS firewall rules and NUT access permissions allowing the intended private clients.</li>
+        </ul>
+        <p>First verify status locally with an existing NUT client. Exact setup steps depend on NAS platform, firmware, NUT packaging, and network topology. The examples below describe connection patterns, not verified instructions for every Synology, Unraid, or TrueNAS release.</p>
+
+        <h2 id="tailscale">Tailscale walkthrough</h2>
+        <h3>1. Choose direct access or a subnet router</h3>
+        <p><strong>A: Tailscale on the NAS or NUT host.</strong> Install the supported Tailscale package on that host and join your tailnet. Use the host's Tailscale IP address, or its MagicDNS hostname when enabled and resolving on Android. Check platform restrictions; Tailscale's <a href="https://tailscale.com/docs/integrations/synology">Synology documentation</a> covers DSM-specific networking considerations.</p>
+        <p><strong>B: Tailscale elsewhere on the home network.</strong> Configure an always-on device as a subnet router for the LAN containing the NAS. Follow the official <a href="https://tailscale.com/docs/features/subnet-routers">subnet-router documentation</a> to enable forwarding, advertise the required subnet, approve the route where required, and allow access through tailnet policy. UPSLink then uses the NAS's private LAN address, not the subnet router's Tailscale address.</p>
+        <p>Installing Tailscale only on the phone does not make home LAN devices reachable. You need either a reachable Tailscale peer running NUT or an operational subnet route. An exit node is not required for these patterns.</p>
+
+        <h3>2. Connect Android to the same tailnet</h3>
+        <p>Install Tailscale on Android, sign in to the same tailnet, complete any required device approval, and connect the VPN. Confirm that the NUT host or subnet router is online. Review tailnet access rules so your phone is allowed to contact the destination on its configured NUT TCP port.</p>
+        <p>Check for another active Android VPN that could replace or conflict with this connection. When travelling, overlapping home and hotel LAN ranges can also send traffic down the wrong route.</p>
+
+        <h3>3. Record the correct destination</h3>
+        <p>For direct access, copy the NUT host's Tailscale address from its device details. For subnet routing, obtain the NAS's LAN address from your own network configuration and confirm that address is inside the approved advertised route. Use a stable address assignment where possible.</p>
+        <p>MagicDNS names identify tailnet devices; they do not automatically create DNS records for every NAS behind a subnet router. Start with the destination IP if hostname resolution is uncertain, then configure private DNS as needed.</p>
+
+        <h3>4. Check the NUT listener and firewall</h3>
+        <p>On a self-managed NUT host, review <code>upsd.conf</code>. A loopback-only listener cannot accept remote clients. Where needed, configure a <code>LISTEN</code> entry for the specific reachable private interface and configured port, following the <a href="https://networkupstools.org/docs/man/upsd.conf.html">upsd.conf reference</a>. Apply service changes using your platform's supported method.</p>
+        <p>Managed NAS firmware may generate configuration files, so use its supported controls rather than assuming direct edits survive restarts. Keep firewall access narrow. With subnet-router source NAT, the NAS may see the router's LAN address; without it, return routes and rules must accommodate the VPN client addresses. Check the source the NAS actually sees before changing permitted-client lists.</p>
+
+        <h3>5. Verify reachability before opening UPSLink</h3>
+        <p>From a trusted VPN-connected computer with NUT tools, query <code>upsc -l &lt;nut-host&gt;:3493</code> to list UPS names, then <code>upsc &lt;ups-name&gt;@&lt;nut-host&gt;:3493</code> to read status. Replace the placeholders and port with your configuration. These are computer-side diagnostic commands, not UPSLink fields.</p>
+        <p>A successful query on another peer helps isolate server problems, but does not prove the phone has identical permissions. On Android, use an available TCP diagnostic tool to check the same host and port, or confirm with manual connection in UPSLink. Ping alone cannot establish that NUT is reachable.</p>
+
+        <h2 id="wireguard">WireGuard alternative</h2>
+        <p>An existing WireGuard tunnel can provide the same private access. Its endpoint may run on your router, a Raspberry Pi, or another gateway; it does not need to run on the NAS.</p>
+        <ol>
+          <li>Include the NAS address or required LAN subnet in the Android peer's <code>AllowedIPs</code>, and ensure the client installs the corresponding route.</li>
+          <li>Enable forwarding on the VPN gateway and allow only the necessary VPN-to-NAS traffic through its firewall.</li>
+          <li>Provide a return route to the VPN clients, or intentional source NAT on the gateway. Account for that source address in NAS restrictions.</li>
+          <li>Use the private NUT IP, or configure DNS that resolves its hostname while the tunnel is active. Test the NUT port before configuring the app.</li>
+        </ol>
+        <p><a href="https://www.wireguard.com/">WireGuard's official overview</a> explains how allowed IPs select peers and constrain incoming source addresses. Correct keys and a successful handshake alone do not establish LAN forwarding. UPSLink connects to the NUT endpoint, not the VPN gateway unless that gateway also runs NUT. Hosting your own WireGuard endpoint may require an inbound VPN UDP rule or forwarding; never substitute public NUT forwarding.</p>
+
+        <h2 id="connect-upslink">Connect UPSLink to your remote NUT server</h2>
+        <ol>
+          <li>Install or open UPSLink on Android while the VPN is connected.</li>
+          <li>Tap <strong>Add UPS</strong> and use manual server entry with the VPN-reachable IP or hostname. Local network discovery may not cross VPN or subnet boundaries.</li>
+          <li>Enter the configured NUT port, normally <code>3493</code>.</li>
+          <li>Supply NUT credentials only if required by your configuration and supported by the app's authentication flow. Use NUT credentials, not the NAS administrator login.</li>
+          <li>Select the UPS exposed by the server, assign a recognizable name, and save the connection.</li>
+          <li>Confirm current dashboard values. Turn off Wi-Fi and repeat over mobile data with the VPN active to verify access from outside the home LAN.</li>
+        </ol>
+        <p>The <a href="tutorial-setup-guide.html">complete UPSLink setup tutorial</a> shows these screens, including authentication, UPS selection, saving, and alert permissions.</p>
+        <p><strong>Battery percentage</strong> estimates charge remaining; <strong>runtime</strong> estimates remaining operating time at the current load. <strong>Load</strong> indicates UPS utilization. <strong>Online/on-battery</strong> describes utility versus battery power, which is distinct from whether the app's server connection is online. Voltage and other supported measurements depend on the UPS and NUT driver; missing fields are not necessarily a connection failure.</p>
+
+        <h2 id="scenarios">Practical NAS and homelab scenarios</h2>
+        <p><strong>Synology NAS with a USB-connected APC UPS:</strong> confirm the exact UPS works locally and that DSM exposes a compatible NUT service to permitted clients. Use direct Tailscale access or a subnet router, then check which source address reaches the NAS. This is a Synology UPS Android connection pattern, not a firmware-specific setup recipe.</p>
+        <p><strong>Unraid server:</strong> confirm your UPS monitoring implementation actually provides a NUT-compatible endpoint. Local UPS reporting alone does not establish that. With NUT available, Unraid UPS monitoring follows the same private host-and-port workflow.</p>
+        <p><strong>TrueNAS or Raspberry Pi:</strong> determine whether the system serves NUT data or consumes it from another host. TrueNAS UPS monitoring requires an accessible server configuration appropriate to that release. A Pi can instead run the driver and NUT server for compatible hardware; in that case UPSLink targets the Pi.</p>
+        <p>While travelling or using mobile data, the app queries that endpoint over the VPN. These are conceptual compatibility examples. Validate your specific platform and model locally before relying on remote access.</p>
+
+        <h2 id="alerts">Remote alerts and connectivity limits</h2>
+        <p>UPSLink can display remote status whenever its NUT endpoint is reachable. Background alerts also depend on monitoring settings, notification permissions, Android background execution and battery policies, and continuing VPN connectivity. A VPN supplies connectivity; it does not by itself create push notifications.</p>
+        <p>A persistent VPN can keep the private route available for background monitoring. Manually connecting only when checking status supports on-demand viewing, but leaves gaps while disconnected. Test your intended monitoring settings with the phone locked and over mobile data. Do not assume instant notifications or continuous monitoring when the phone is offline or the VPN drops.</p>
+        <div class="article-note"><strong>The home internet connection matters too.</strong><p>During an outage, the NAS, VPN gateway, router, switches, and modem or ONT must remain powered and online. An ISP outage can remove remote visibility even when the UPS still has charge. Keep local NUT shutdown automation independent of your phone.</p></div>
+
+        <h2 id="security">Security best practices</h2>
+        <ul>
+          <li>Never expose TCP 3493 directly to the public internet. Restrict NUT to trusted LAN/VPN clients and retain the NAS firewall.</li>
+          <li>Limit tailnet or WireGuard gateway access to the destinations and ports needed for monitoring.</li>
+          <li>Where authentication is required, use a dedicated least-privilege monitoring account. Avoid granting UPS commands or writable-variable permissions just to read status; consult <a href="https://networkupstools.org/docs/man/upsd.users.html">NUT user permissions</a>.</li>
+          <li>Do not assume a password protects every NUT status query: some deployments allow anonymous reads. Network access restrictions remain essential.</li>
+          <li>Keep credentials, VPN keys, and identifiable network details out of public screenshots and support posts.</li>
+        </ul>
+        <p>Tailscale and WireGuard encrypt VPN transport. Users must still configure NUT permissions correctly. With a subnet router, encryption ends at that router; the remaining LAN hop needs its own trust and access controls.</p>
+
+        <h2 id="troubleshooting">Troubleshooting remote connections</h2>
+        <p>Check the network path before changing credentials or the UPS driver. The table scrolls horizontally on narrow screens.</p>
+        <div class="remote-ups-table" role="region" aria-label="Remote UPS connection troubleshooting" tabindex="0">
+          <table>
+            <caption>Symptoms, likely causes, and recommended checks</caption>
+            <thead><tr><th scope="col">Symptom</th><th scope="col">Likely cause</th><th scope="col">Recommended checks</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">VPN connected, NUT unreachable</th><td>Wrong destination, routing, or policy.</td><td>Confirm direct-peer versus subnet address, peer availability, access policy, overlapping subnets, and return routing.</td></tr>
+              <tr><th scope="row">NAS reachable, TCP 3493 blocked</th><td>Listener, firewall, or different NUT port.</td><td>Check the configured port, reachable LISTEN interface, service state, and permitted source. Web access is a separate service.</td></tr>
+              <tr><th scope="row">UPS does not appear</th><td>Wrong server, driver unavailable, or no exported UPS.</td><td>List UPS names with a NUT client. Verify driver health and that this host serves data rather than acting only as a client.</td></tr>
+              <tr><th scope="row">Authentication or permission error</th><td>Wrong NUT credentials or client restrictions.</td><td>Check capitalization, server user settings, logs, and actual source address. Do not grant administrator rights as a shortcut.</td></tr>
+              <tr><th scope="row">Wi-Fi works, mobile data fails</th><td>LAN-only address without a VPN route, or VPN disconnected.</td><td>Activate the tunnel on mobile data; verify routes, peer connectivity, and that another VPN has not replaced it.</td></tr>
+              <tr><th scope="row">Alerts delayed or absent when locked</th><td>Background limits, disabled alerts, or lost connectivity.</td><td>Review monitoring, notifications, Android battery settings, and VPN persistence; test while locked.</td></tr>
+              <tr><th scope="row">Hostname fails</th><td>Private DNS unavailable over VPN.</td><td>Try the known IP, then check MagicDNS or private DNS configuration. LAN discovery names may not resolve remotely.</td></tr>
+              <tr><th scope="row">Tailscale subnet route unavailable</th><td>Route unapproved, unadvertised, or router offline.</td><td>Verify the advertised subnet, required approval, access policy, gateway forwarding, and Android route availability.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2 id="faq">Frequently asked questions</h2>
+        <div class="article-faq">
+          <section><h3>Can I monitor my Synology UPS from outside my home?</h3><p>Yes, when the NAS exposes a compatible NUT service and your VPN, permitted-client settings, and firewall allow the phone to reach it. Verify your DSM version's supported configuration.</p></section>
+          <section><h3>Does UPSLink require port forwarding?</h3><p>No public NUT port forwarding is needed for this VPN design. A self-hosted VPN endpoint may have its own connectivity requirements; keep NUT private.</p></section>
+          <section><h3>Can I use Tailscale instead of WireGuard?</h3><p>Yes. Either can provide the private route to NUT. Tailscale requires a reachable peer or subnet router; a standalone WireGuard setup needs correct routes and gateway rules.</p></section>
+          <section><h3>Does this work with Unraid or TrueNAS?</h3><p>It can when your configuration exposes an accessible NUT-compatible server. Check the platform version, UPS implementation, and server role rather than assuming every installation provides one.</p></section>
+          <section><h3>Will I receive power outage alerts remotely?</h3><p>Supported alerts depend on reachable NUT data, active monitoring, VPN availability, permissions, and Android background behavior. They are not guaranteed when connectivity fails.</p></section>
+          <section><h3>Does UPSLink monitor NAS health or just UPS status?</h3><p>UPSLink monitors UPS information supplied by NUT. It does not provide general NAS health, disk, CPU, or storage monitoring.</p></section>
+          <section><h3>Can I use a Raspberry Pi as the NUT server?</h3><p>Yes, with compatible UPS hardware, an operational driver and upsd service, and restricted private network access. Point UPSLink at the Pi's VPN-reachable endpoint.</p></section>
+        </div>
+
+        <h2 id="sources">Official configuration references</h2>
+        <ul class="article-sources">
+          <li><a href="https://tailscale.com/docs/features/subnet-routers">Tailscale subnet routers and private LAN access</a></li>
+          <li><a href="https://tailscale.com/docs/integrations/synology">Tailscale on Synology</a></li>
+          <li><a href="https://www.wireguard.com/">WireGuard routing and encrypted transport</a></li>
+          <li><a href="https://networkupstools.org/docs/man/upsd.conf.html">NUT listener configuration</a> and <a href="https://networkupstools.org/docs/man/upsd.users.html">user permissions</a></li>
+        </ul>
+        <div class="cta-panel">
+          <div><span class="eyebrow">Your private NUT Android app</span><h2>Check your UPS wherever you connect.</h2><p>Install UPSLink on Android and follow the <a href="tutorial-setup-guide.html">illustrated setup guide</a> once your private NUT connection is ready.</p></div>
+          <a class="button" href="https://play.google.com/store/apps/details?id=com.reelmemories.upslink" target="_blank" rel="noopener">Get UPSLink on Google Play</a>
+        </div>
+      </article>
+      <aside class="article-aside" aria-label="Article contents">
+        <strong>In this guide</strong>
+        <a href="#architecture">How it works</a><a href="#prerequisites">Prerequisites</a><a href="#tailscale">Tailscale walkthrough</a><a href="#wireguard">WireGuard alternative</a><a href="#connect-upslink">Connect UPSLink</a><a href="#scenarios">NAS examples</a><a href="#alerts">Remote alerts</a><a href="#security">Security</a><a href="#troubleshooting">Troubleshooting</a><a href="#faq">FAQ</a><a href="#sources">Official references</a>
+      </aside>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-copy">
+        <a class="brand" href="../index.html"><img src="../assets/screenshots/upslink-icon.png" alt="" width="1024" height="1024"><span><span class="brand-green">UPS</span>Link</span></a>
+        <p>Simple Android monitoring for NUT-compatible UPS devices across your homelab and small IT environment.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="../index.html">Home</a><a href="../getting-started.html">Getting Started</a><a href="../faq.html">FAQ</a><a href="../privacy-policy.html">Privacy Policy</a><a href="tutorial-setup-guide.html">Setup Tutorial</a><a href="network-ups-tools-guide.html">NUT Guide</a><a href="https://play.google.com/store/apps/details?id=com.reelmemories.upslink" target="_blank" rel="noopener">Google Play</a>
+      </nav>
+    </div>
+    <div class="footer-meta">UPSLink &copy; 2026</div>
+  </footer>
+</body>
+</html>
