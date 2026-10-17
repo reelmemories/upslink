@@ -1619,3 +1619,41 @@ code {
 .remote-ups-table td { padding: 1rem; border-top: 1px solid var(--color-border); vertical-align: top; }
 .remote-ups-table thead { background: var(--color-surface); color: var(--color-accent); }
 .remote-ups-table td { color: var(--color-muted); }
+/* Wear OS article: preserve complete screenshots and readable mobile layouts. */
+.wear-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4rem);
+}
+.wear-hero h1 { font-size: clamp(2.35rem, 4.7vw, 4.25rem); }
+.wear-pro-label { color: var(--color-accent); font-weight: 700; }
+.wear-hero__figure { margin: 0; }
+.wear-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  gap: 2rem;
+  align-items: center;
+  margin-block: 1.5rem 2.5rem;
+}
+.wear-feature--reverse > figure { grid-column: 1; grid-row: 1; }
+.wear-feature--reverse > div { grid-column: 2; }
+.wear-feature .article-figure { margin: 0; }
+.wear-article .article-figure img,
+.wear-hero__figure img { display: block; aspect-ratio: 1; object-fit: contain; }
+.wear-feature p { color: #c8d2d0; }
+.wear-feature h3 { margin-top: 0; }
+.wear-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+.wear-gallery .article-figure { margin-block: 1rem 2rem; }
+.wear-network { margin-block: 2rem; padding: 0; list-style: none; }
+.wear-network li { padding: 1rem 1.25rem; border: 1px solid var(--color-border); border-radius: var(--radius-md); background: var(--color-surface); }
+.wear-network strong { color: var(--color-accent); }
+.wear-network span { display: block; }
+.wear-network li:not(:last-child)::after { content: '\2193'; display: block; color: var(--color-accent); }
+.wear-setup li { margin-bottom: 1rem; }
+@media (max-width: 700px) {
+  .wear-hero, .wear-feature, .wear-gallery { grid-template-columns: minmax(0, 1fr); }
+  .wear-hero__figure, .wear-feature .article-figure { width: 100%; max-width: 420px; margin-inline: auto; }
+  .wear-feature--reverse > figure, .wear-feature--reverse > div { grid-column: auto; grid-row: auto; }
+  .wear-gallery .article-figure { width: 100%; max-width: 420px; margin-inline: auto; }
+}
